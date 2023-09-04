@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "lint:fix": "ng lint --fix"
+    "lint:fix": "ng lint --fix",
+    "prettier": "prettier --config .prettierrc.json",
+    "prettier:fix": "npm run prettier -- --write \"{*.ts,*.js}\""
   },
   "private": true,
   "dependencies": {
