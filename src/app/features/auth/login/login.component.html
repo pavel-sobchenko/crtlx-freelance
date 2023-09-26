@@ -20,6 +20,12 @@
         formControlName="email"
         id="email" placeholder="Email" type="email">
     </div>
+    <div *ngIf="isSubmitted && email?.errors?.['required']" class="text-red-500 text-sm mt-1">
+      Email is required.
+    </div>
+    <div *ngIf="isSubmitted && email.errors?.['email']" class="text-red-500 text-sm mt-1">
+      Value should be in email format.
+    </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
         Password
@@ -28,10 +34,22 @@
         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         formControlName="password"
         id="password" placeholder="Password" type="password">
+      <div *ngIf="isSubmitted && password?.errors?.['required']" class="text-red-500 text-sm mt-1">
+        Password is required.
+      </div>
+      <div *ngIf="isSubmitted && password.errors?.['minlength']" class="text-red-500 text-sm mt-1">
+        Minimum length is 6.
+      </div>
+    </div>
+    <div class="flex items-baseline">
+      <input class="mr-2 leading-tight" formControlName="rememberMe" id="remember" type="checkbox"/>
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="remember">
+        Remember me
+      </label>
     </div>
     <div class="flex items-center justify-between">
       <input
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
         type="submit"
         value="Sign In"
       />
