@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "lint:fix": "ng lint --fix"
+    "lint:fix": "ng lint --fix",
+    "prettier": "prettier --config .prettierrc.json",
+    "prettier:fix": "npm run prettier -- --write \"{*.ts,*.js}\""
   },
   "private": true,
   "dependencies": {
@@ -20,6 +22,10 @@
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
+    "@ngxs/devtools-plugin": "^3.8.1",
+    "@ngxs/logger-plugin": "^3.8.1-dev.master-98beeea",
+    "@ngxs/store": "^3.8.1-dev.master-98beeea",
+    "font-awesome": "^4.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
