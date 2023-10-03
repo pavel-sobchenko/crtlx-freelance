@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { StorageService } from "../../../core/services/storage.service";
 import { Store } from "@ngxs/store";
@@ -12,7 +12,7 @@ import { take } from "rxjs";
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -80,6 +80,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         });
     }
+  }
+
+  public register(): void {
+    this.router.navigate(['/home']);
+
   }
 
   public reset(): void {

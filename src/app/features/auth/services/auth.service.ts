@@ -43,15 +43,24 @@ export class AuthService {
     );
   }
 
-  public register(username: string, email: string, password: string): Observable<User> {
+  public register(name: string, email: string, password: string): Observable<User> {
     return this.http.post<User>(
       this.baseUrl + 'auth/sign-up',
       {
-        username,
+        name,
         email,
         password,
       },
       this.httpOptions
+    );
+  }
+
+  public checkEmail(email: string): Observable<boolean> {
+    return this.http.post<boolean>(
+      this.baseUrl + `auth/sign-up/validate`,
+      {
+        email
+      }
     );
   }
 

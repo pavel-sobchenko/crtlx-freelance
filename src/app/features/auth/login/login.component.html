@@ -1,15 +1,15 @@
-<div class="flex justify-center items-center h-screen">
-  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/4" [formGroup]="form" (ngSubmit)="login()">
+<div class="form-container flex justify-center items-center h-screen">
+  <form class="form bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/4" [formGroup]="form" (ngSubmit)="login()">
     <div class="mb-4 flex items-start">
       <img alt="" src="/assets/icons/Logo.svg">
-      <label class="block text-gray-700 text-lg font-bold ml-2 mb-2" for="email">
+      <div class="block text-gray-700 text-lg font-bold ml-2 mb-2">
         Freenance
-      </label>
+      </div>
     </div>
     <div class="mb-4">
-      <label class="block text-gray-700 text-md font-bold mb-2" for="email">
+      <div class="block text-gray-700 text-md font-bold mb-2">
         Sig In
-      </label>
+      </div>
     </div>
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -41,11 +41,16 @@
         Minimum length is 6.
       </div>
     </div>
-    <div class="flex items-baseline">
-      <input class="mr-2 leading-tight" formControlName="rememberMe" id="remember" type="checkbox"/>
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="remember">
-        Remember me
-      </label>
+    <div class="flex justify-between align-baseline">
+      <div class="flex items-baseline">
+        <input class="mr-2 leading-tight" formControlName="rememberMe" id="remember" type="checkbox"/>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="remember">
+          Remember me
+        </label>
+      </div>
+      <div class="text-blue-700 text-sm underline cursor-pointer">
+        <a routerLink="/register" routerLinkActive="active">Create account</a>
+      </div>
     </div>
     <div class="flex items-center justify-between">
       <input

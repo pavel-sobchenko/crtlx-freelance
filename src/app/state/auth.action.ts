@@ -14,6 +14,13 @@ export class LoginTokenAction {
   }
 }
 
+export class RegisterAction {
+  public static readonly type = '[Auth] Register';
+
+  constructor(public payload: { name: string; email: string; password: string }) {
+  }
+}
+
 export class LoginOutAction {
   public static readonly type = '[Auth] Logout';
 }

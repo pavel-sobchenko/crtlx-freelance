@@ -1,9 +1,16 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { LoginAction, LoginOutAction, LoginTokenAction, UpdateAuthState } from "@src/app/state/auth.action";
+import {
+  LoginAction,
+  LoginOutAction,
+  LoginTokenAction,
+  RegisterAction,
+  UpdateAuthState
+} from "@src/app/state/auth.action";
 import { Injectable } from "@angular/core";
 import { AuthService } from "@src/app/features/auth/services/auth.service";
 import { Observable, tap } from "rxjs";
 import { Token } from "@src/app/shared/models/token";
+import { User } from "@src/app/shared/models/user";
 
 export interface AuthStateModel {
   token: Token | null;
@@ -60,6 +67,18 @@ export class AuthState {
       tap((token) => {
         context.patchState({
           token: token,
+        })
+      })
+    );
+  }
+
+  @Action(RegisterAction)
+  public register(context: StateContext<AuthStateModel>, action: RegisterAction): Observable<User> {
+    const { name, email, password } = action.payload;
+    return this.authService.register(name, email, password).pipe(
+      tap((user: User) => {
+        context.patchState({
+          username: user.username,
         })
       })
     );
