@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from '../../../shared/models/user';
 import { Observable, shareReplay, tap } from "rxjs";
@@ -16,7 +15,7 @@ export class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private readonly router: Router, private readonly http: HttpClient, private readonly localStorage: StorageService) {
+  constructor(private readonly http: HttpClient, private readonly localStorage: StorageService) {
   }
 
   public login(username: string, password: string, isRemembered = false): Observable<Token> {
@@ -57,6 +56,5 @@ export class AuthService {
 
   public logout(): void {
     this.localStorage.clearStorage()
-    this.router.navigate(['/login']);
   }
 }
