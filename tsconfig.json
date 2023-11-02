@@ -24,11 +24,6 @@
       "dom"
     ],
     "strictPropertyInitialization": false,
-    "paths": {
-      "@src/*": [
-        "src/*"
-      ]
-    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

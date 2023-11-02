@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "prettier": "prettier --config .prettierrc.json",
-    "prettier:fix": "npm run prettier -- --write \"{*.ts,*.js}\""
+    "prettier:fix": "npm run prettier -- --write \"{src/**/,./}*{.ts,.js,.css,.scss,.html}\""
   },
   "private": true,
   "dependencies": {
@@ -52,7 +52,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.28",
-    "prettier": "^3.0.2",
+    "prettier": "3.0.3",
     "prettier-eslint": "^15.0.1",
     "tailwindcss": "^3.3.3",
     "typescript": "~5.1.3"
