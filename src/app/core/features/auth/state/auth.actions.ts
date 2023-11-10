@@ -1,4 +1,4 @@
-import { TokenResponseModel } from 'src/app/core/features/auth/types/token-response.model'
+import { TokenResponse } from 'src/app/core/features/auth/types/token-response'
 
 export class LoginAction {
   public static readonly type = '[Auth] Login'
@@ -10,8 +10,12 @@ export class LoginAction {
 export class LoginTokenAction {
   public static readonly type = '[Auth] Login Token'
 
-  constructor(public payload: { token: TokenResponseModel }) {
+  constructor(public payload: { token: TokenResponse }) {
   }
+}
+
+export class InitAuthStateAction {
+  public static readonly type = '[Auth] Init State'
 }
 
 export class LoginOutAction {

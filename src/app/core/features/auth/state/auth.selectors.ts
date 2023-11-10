@@ -1,17 +1,11 @@
 import { Selector } from '@ngxs/store'
-import { TokenResponseModel } from 'src/app/core/features/auth/types/token-response.model'
-import { UserName } from 'src/app/core/features/auth/types/user-login.model'
+import { TokenResponse } from 'src/app/core/features/auth/types/token-response'
 import { AuthState, AuthStateModel } from 'src/app/core/features/auth/state/auth.state'
 
 export class AuthSelectors {
   @Selector([AuthState])
-  public static token(state: AuthStateModel): TokenResponseModel {
+  public static token(state: AuthStateModel): TokenResponse {
     return state.token
-  }
-
-  @Selector([AuthState])
-  public static username(state: AuthStateModel): UserName {
-    return state.username
   }
 
   @Selector([AuthState])

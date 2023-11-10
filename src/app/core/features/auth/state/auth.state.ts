@@ -1,5 +1,6 @@
 import { Action, State, StateContext } from '@ngxs/store'
 import {
+  InitAuthStateAction,
   LoginAction,
   LoginOutAction,
   LoginTokenAction,
@@ -9,14 +10,14 @@ import {
 import { Injectable } from '@angular/core'
 import { AuthService } from 'src/app/core/features/auth/services/auth.service'
 import { finalize, Observable, tap } from 'rxjs'
-import { TokenResponseModel } from 'src/app/core/features/auth/types/token-response.model'
-import { UserName } from 'src/app/core/features/auth/types/user-login.model'
-import { REMEMBER, TOKEN } from '../auth.constants.'
+import { TokenResponse } from 'src/app/core/features/auth/types/token-response'
 import { Router } from '@angular/router'
 
+const TOKEN = 'jwToken';
+const REMEMBER = 'remember';
+
 export interface AuthStateModel {
-  token: TokenResponseModel
-  username: UserName
+  token: TokenResponse
   isRemember: boolean
   isLoginFormSubmitted: boolean
 }
@@ -24,7 +25,6 @@ export interface AuthStateModel {
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
-    username: null,
     token: null,
     isRemember: false,
     isLoginFormSubmitted: false
@@ -40,19 +40,22 @@ export class AuthState {
 
   @Action(LoginAction)
   public login(
-    context: StateContext<AuthStateModel>,
-    action: LoginAction
-  ): Observable<TokenResponseModel> {
+      context: StateContext<AuthStateModel>,
+      action: LoginAction
+  ): Observable<TokenResponse> {
     const { username, password } = action.payload
     return this._authService.login(username, password).pipe(
-      tap(token => {
-        context.patchState({
-          token: token,
-          username: username
-        })
-        void this._router.navigate(['/home'])
-        window.localStorage.setItem(TOKEN, JSON.stringify(token))
-      }),
+        tap((token: TokenResponse) => {
+          context.patchState({
+            token
+          })
+          void this._router.navigate(['/home'])
+          if (context.getState().isRemember) {
+            window.localStorage.setItem(TOKEN, JSON.stringify(token))
+          } else {
+            window.sessionStorage.setItem(TOKEN, JSON.stringify(token))
+          }
+        }),
       finalize(() => {
         context.patchState({
           isLoginFormSubmitted: false
@@ -63,26 +66,53 @@ export class AuthState {
 
   @Action(LoginTokenAction)
   public loginToken(
-    context: StateContext<AuthStateModel>,
-    action: LoginTokenAction
-  ): Observable<TokenResponseModel> {
+      context: StateContext<AuthStateModel>,
+      action: LoginTokenAction
+  ): Observable<TokenResponse> {
     const refreshToken = action.payload?.token?.refreshToken as string
     return this._authService.loginToken(refreshToken).pipe(
-      tap(token => {
-        context.patchState({
-          token: token
+        tap(token => {
+          context.patchState({
+            token
+          })
+          void this._router.navigate(['/home'])
         })
-        void this._router.navigate(['/home'])
-      })
     )
+  }
+
+  @Action(InitAuthStateAction)
+  public initAuthState(context: StateContext<AuthStateModel>): void {
+    let jwToken;
+    const remember = window.localStorage.getItem(REMEMBER)
+    if (remember) {
+      context.patchState({
+        isRemember: true
+      })
+    }
+
+    if (remember) {
+      jwToken = window.localStorage.getItem(TOKEN)
+    } else {
+      jwToken = window.sessionStorage.getItem(TOKEN)
+    }
+    const token = JSON.parse(jwToken as string) as TokenResponse
+
+    if (token) {
+      context.patchState({
+        token
+      })
+      void this._router.navigate(['/home'])
+    }
   }
 
   @Action(LoginOutAction)
   public logout(context: StateContext<AuthStateModel>): void {
-    this._authService.logout()
+    window.localStorage.clear()
+    window.sessionStorage.clear()
     context.patchState({
-      username: null,
-      token: null
+      token: null,
+      isRemember: false,
+      isLoginFormSubmitted: false
     })
   }
 

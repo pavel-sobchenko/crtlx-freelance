@@ -3,8 +3,7 @@ import { AppComponent } from './app/app.component'
 import { provideRouter } from '@angular/router'
 import { routes } from './app/app-routing.module'
 import { provideHttpClient, withInterceptors } from '@angular/common/http'
-import { jwtInterceptor } from 'src/app/core/features/auth/services/jwt-interceptor.service'
-import { errorInterceptorService } from 'src/app/core/features/auth/services/error-interceptor.service'
+import { jwtInterceptor } from 'src/app/core/features/auth/interceptors/jwt-interceptor.service'
 import { importProvidersFrom } from '@angular/core'
 import { NgxsModule } from '@ngxs/store'
 import { environment } from 'src/environments/environment.development'
@@ -16,7 +15,7 @@ void bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([errorInterceptorService, jwtInterceptor])
+        withInterceptors([jwtInterceptor])
     ),
     importProvidersFrom(
       NgxsModule.forRoot([AuthState], {
