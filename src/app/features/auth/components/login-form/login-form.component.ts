@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { LoginData } from "../../types/login-data";
+import { Credentials } from "../../../../core/auth/types/credentials";
 
 @Component({
   selector: 'login-form',
@@ -13,9 +13,8 @@ import { LoginData } from "../../types/login-data";
 export class LoginFormComponent {
 
   @Input() public submitted: boolean | null;
-  @Output() public readonly submitEmitter = new EventEmitter<LoginData>();
-  @Output() public readonly markFieldsEmitter = new EventEmitter<boolean>();
-  @Output() public readonly rememberMeEmitter = new EventEmitter<boolean>();
+  @Output() public readonly submitEmitter = new EventEmitter<{ credentials: Credentials; isRemember: boolean }>();
+  @Output() public readonly markFieldsSubmittedEmitter = new EventEmitter<boolean>();
 
   public form: FormGroup = this._fb.group({
     email: [
@@ -34,9 +33,6 @@ export class LoginFormComponent {
   })
 
   constructor(private readonly _fb: NonNullableFormBuilder) {
-    this.rememberMe.valueChanges.subscribe((value: boolean) => {
-      this.rememberMeEmitter.emit(value);
-    });
   }
 
   public get email(): AbstractControl {
@@ -53,10 +49,17 @@ export class LoginFormComponent {
 
   public submit(): void {
     if (this.form.invalid) {
-      this.markFieldsEmitter.emit(true);
+      this.markFieldsSubmittedEmitter.emit(true);
       return;
     }
 
-    this.submitEmitter.emit({ username: this.email.value as string, password: this.password.value as string });
+    this.submitEmitter.emit({
+      credentials:
+          {
+            email: this.email.value as string,
+            password: this.password.value as string
+          },
+      isRemember: this.rememberMe.value as boolean
+    });
   }
 }

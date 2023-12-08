@@ -1,8 +1,7 @@
 <div class="flex justify-center items-center h-screen">
   <login-form
           [submitted]="isSubmitted$ | async"
-          (markFieldsEmitter)="markFields($event)"
-          (rememberMeEmitter)="rememberMe($event)"
+          (markFieldsSubmittedEmitter)="markFields($event)"
           (submitEmitter)="login($event)"
   />
 </div>

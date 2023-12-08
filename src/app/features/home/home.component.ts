@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Store } from '@ngxs/store'
-import { LoginOutAction } from 'src/app/core/features/auth/state/auth.actions'
+import { LoginOut } from 'src/app/core/auth/state/auth.actions'
 import { Router } from '@angular/router'
 
 @Component({
@@ -19,7 +19,7 @@ export class HomeComponent {
   }
 
   public logout(): void {
-    this._store.dispatch(new LoginOutAction())
+    this._store.dispatch(new LoginOut())
     void this._router.navigate(['/login'])
   }
 }
