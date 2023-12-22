@@ -9,8 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "prettier": "prettier --config .prettierrc.json",
-    "prettier:fix": "npm run prettier -- --write \"{src/**/,./}*{.ts,.js,.css,.scss,.html}\""
+    "prettier": "npx prettier --write ."
   },
   "private": true,
   "dependencies": {
@@ -25,6 +24,7 @@
     "@ngxs/devtools-plugin": "^3.8.1",
     "@ngxs/logger-plugin": "^3.8.1-dev.master-98beeea",
     "@ngxs/store": "^3.8.1-dev.master-98beeea",
+    "await-to-js": "^3.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -43,8 +43,8 @@
     "@typescript-eslint/parser": "5.62.0",
     "autoprefixer": "^10.4.15",
     "eslint": "^8.44.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.1",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

@@ -1,15 +1,24 @@
-import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from "src/environments/environment";
+import {
+  HttpEvent,
+  HttpHandlerFn,
+  HttpInterceptorFn,
+  HttpRequest
+} from '@angular/common/http'
+import { Observable } from 'rxjs'
 
-export const addApiBaseUrlInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
-    if (!request.url.startsWith('/api/')) {
-        return next(request);
-    }
+const apiUrl = 'http://localhost:3000/'
 
-    const withApiUrl = request.clone({
-        url: request.url.replace('/api/', `${environment.apiUrl}`)
-    });
+export const addApiBaseUrlInterceptor: HttpInterceptorFn = (
+  request: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> => {
+  if (!request.url.startsWith('/api/')) {
+    return next(request)
+  }
 
-    return next(withApiUrl);
-};
+  const withApiUrl = request.clone({
+    url: request.url.replace('/api/', `${apiUrl}`)
+  })
+
+  return next(withApiUrl)
+}

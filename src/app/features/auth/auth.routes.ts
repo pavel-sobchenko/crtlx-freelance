@@ -1,9 +1,9 @@
 import { Route } from '@angular/router'
-import { LoginPageComponent } from '../../features/auth/pages/login/login-page.component'
+import { LoginPageComponent } from './pages/login/login-page.component'
 
 export const routes: Route[] = [
   {
-    path: '',
+    path: 'login',
     component: LoginPageComponent
   }
 ]

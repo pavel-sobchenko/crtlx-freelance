@@ -1,27 +1,27 @@
-import { Tokens } from 'src/app/core/auth/types/tokens'
-import { Credentials } from "../types/credentials";
+import { Tokens } from '../../auth/types/tokens'
+import { Credentials } from '../types/credentials'
 
 export class Login {
   public static readonly type = '[Auth] Login'
 
-  constructor(public readonly credentials: Credentials, public readonly remember: boolean) {
-  }
+  constructor(
+    public readonly credentials: Credentials,
+    public readonly remember: boolean
+  ) {}
 }
 
-export class LoginOut {
+export class LogOut {
   public static readonly type = '[Auth] Logout'
 }
 
 export class SetTokens {
   public static readonly type = '[Auth] Set Tokens'
 
-  constructor(public tokens: Tokens) {
-  }
+  constructor(public tokens: Tokens) {}
 }
 
-export class UpdateLoginFormSubmission {
-  public static readonly type = '[Auth] Submit Login Form'
+export class SetIsLoading {
+  public static readonly type = '[Auth] Set Is Loading'
 
-  constructor(public isLoginFormSubmitted: boolean) {
-  }
+  constructor(public isLoading: boolean) {}
 }

@@ -1,65 +1,51 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AbstractControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Credentials } from "../../../../core/auth/types/credentials";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core'
+import { CommonModule } from '@angular/common'
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms'
+import { errors } from '../../constants/errors'
+import { LoginData } from '../../types/login-data'
+import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
 
 @Component({
   selector: 'login-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './login-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginFormComponent {
-
-  @Input() public submitted: boolean | null;
-  @Output() public readonly submitEmitter = new EventEmitter<{ credentials: Credentials; isRemember: boolean }>();
-  @Output() public readonly markFieldsSubmittedEmitter = new EventEmitter<boolean>();
+  @Input() public loading = false
+  @Output() public readonly submitForm = new EventEmitter<LoginData>()
+  public formErrors = errors
 
   public form: FormGroup = this._fb.group({
-    email: [
-      '',
-      {
-        validators: [Validators.required, Validators.email]
-      }
-    ],
-    password: [
-      '',
-      {
-        validators: [Validators.required, Validators.minLength(6)]
-      }
-    ],
-    rememberMe: [false]
+    email: ['', { validators: [Validators.required, Validators.email] }],
+    password: ['', { validators: [Validators.required] }],
+    remember: [false]
   })
 
-  constructor(private readonly _fb: NonNullableFormBuilder) {
-  }
-
-  public get email(): AbstractControl {
-    return this.form.controls['email']
-  }
-
-  public get password(): AbstractControl {
-    return this.form.controls['password']
-  }
-
-  public get rememberMe(): AbstractControl {
-    return this.form.controls['rememberMe']
-  }
+  constructor(private readonly _fb: NonNullableFormBuilder) {}
 
   public submit(): void {
-    if (this.form.invalid) {
-      this.markFieldsSubmittedEmitter.emit(true);
-      return;
-    }
+    this.form.markAllAsTouched()
+    if (this.form.invalid) return
 
-    this.submitEmitter.emit({
-      credentials:
-          {
-            email: this.email.value as string,
-            password: this.password.value as string
-          },
-      isRemember: this.rememberMe.value as boolean
-    });
+    this.submitForm.emit({
+      credentials: {
+        email: this.form.controls['email'].value as string,
+        password: this.form.controls['password'].value as string
+      },
+      remember: this.form.controls['remember'].value as boolean
+    })
   }
 }

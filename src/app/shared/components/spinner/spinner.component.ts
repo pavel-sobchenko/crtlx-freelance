@@ -8,5 +8,4 @@ import { CommonModule } from '@angular/common'
   templateUrl: './spinner.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SpinnerComponent {
-}
+export class SpinnerComponent {}

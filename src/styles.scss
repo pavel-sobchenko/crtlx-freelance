@@ -4,7 +4,9 @@
 @tailwind utilities;
 
 @layer utilities {
-  .w-400px {
-    width: 400px;
+  .form {
+    &-middle {
+      width: 400px;
+    }
   }
 }
