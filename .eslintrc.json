@@ -1,17 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true,
         "ecmaVersion": "latest"
       },
@@ -19,15 +13,14 @@
         "es6": true
       },
       "extends": [
+        "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@angular-eslint/all",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
       ],
       "rules": {
-        "curly": [
-          "error",
-          "multi-line"
-        ],
+        "curly": ["error", "multi-line"],
         "no-console": "warn",
         // Typescript
         "@typescript-eslint/adjacent-overload-signatures": "warn",
@@ -55,10 +48,7 @@
         "@typescript-eslint/explicit-module-boundary-types": "error",
         "func-call-spacing": "off",
         "@typescript-eslint/func-call-spacing": "error",
-        "@typescript-eslint/method-signature-style": [
-          "error",
-          "method"
-        ],
+        "@typescript-eslint/method-signature-style": ["error", "method"],
         "no-array-constructor": "off",
         "@typescript-eslint/no-array-constructor": "error",
         "@typescript-eslint/no-confusing-non-null-assertion": "error",
@@ -67,14 +57,11 @@
         "no-empty-function": "off",
         "@typescript-eslint/no-empty-function": "error",
         "@typescript-eslint/no-extra-non-null-assertion": "error",
-        "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/no-for-in-array": "error",
+        "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/no-implied-eval": "error",
         "@typescript-eslint/no-inferrable-types": "error",
-        "@typescript-eslint/no-extra-parens": [
-          "error",
-          "functions"
-        ],
+        "@typescript-eslint/no-extra-parens": ["error", "functions"],
         "no-loop-func": "off",
         "@typescript-eslint/no-loop-func": "warn",
         "no-loss-of-precision": "off",
@@ -122,10 +109,7 @@
         "@typescript-eslint/no-useless-constructor": "error",
         "@typescript-eslint/non-nullable-type-assertion-style": "warn",
         "object-curly-spacing": "off",
-        "@typescript-eslint/object-curly-spacing": [
-          "error",
-          "always"
-        ],
+        "@typescript-eslint/object-curly-spacing": ["error", "always"],
         "@typescript-eslint/prefer-for-of": "error",
         "@typescript-eslint/prefer-function-type": "warn",
         "@typescript-eslint/prefer-includes": "error",
@@ -145,10 +129,7 @@
         "@typescript-eslint/restrict-plus-operands": "warn",
         "@typescript-eslint/restrict-template-expressions": "error",
         "no-return-await": "off",
-        "@typescript-eslint/return-await": [
-          "error",
-          "never"
-        ],
+        "@typescript-eslint/return-await": ["error", "never"],
         "space-before-function-paren": [
           "error",
           {
@@ -199,26 +180,14 @@
           "error",
           {
             "selector": "memberLike",
-            "modifiers": [
-              "private"
-            ],
-            "format": [
-              "camelCase"
-            ],
+            "modifiers": ["private"],
+            "format": ["camelCase"],
             "leadingUnderscore": "require"
           },
           {
-            "selector": [
-              "classProperty"
-            ],
-            "modifiers": [
-              "private",
-              "static",
-              "readonly"
-            ],
-            "format": [
-              "UPPER_CASE"
-            ],
+            "selector": ["classProperty"],
+            "modifiers": ["private", "static", "readonly"],
+            "format": ["UPPER_CASE"],
             "leadingUnderscore": "forbid"
           }
         ],
@@ -255,10 +224,7 @@
         "@angular-eslint/component-selector": [
           "warn",
           {
-            "prefix": [
-              "app",
-              "vlt"
-            ],
+            "prefix": ["app", "vlt"],
             "style": "kebab-case"
           }
         ],
@@ -271,24 +237,18 @@
         "@angular-eslint/no-input-prefix": [
           "error",
           {
-            "prefixes": [
-              "on",
-              "is",
-              "has",
-              "had",
-              "was",
-              "been"
-            ]
+            "prefixes": ["on", "is", "has", "had", "was", "been"]
           }
         ]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
+      "excludedFiles": ["*inline-template-*.component.html"],
       "extends": [
-        "plugin:@angular-eslint/template/all"
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:@angular-eslint/template/accessibility",
+        "plugin:prettier/recommended"
       ],
       "rules": {
         "@angular-eslint/template/no-negated-async": "off",
@@ -310,7 +270,13 @@
             "maxComplexity": 3
           }
         ],
-        "@angular-eslint/template/no-inline-styles": "off"
+        "@angular-eslint/template/no-inline-styles": "off",
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
       }
     }
   ]
