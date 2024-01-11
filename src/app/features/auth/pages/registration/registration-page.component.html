@@ -1,0 +1,14 @@
+<register-form
+  [loading]="loading$ | async"
+  [validationEmailError]="validationEmailError$ | async"
+  (register)="register($event)"
+  (returnToSignIn)="goToSignIn()"
+>
+  <div class="mb-4 flex items-start">
+    <img alt="" src="/assets/icons/Logo.svg" />
+    <div class="block text-gray-700 text-lg font-bold ml-2 mb-2">Freenance</div>
+  </div>
+  <div class="mb-4">
+    <div class="block text-gray-700 text-md font-bold mb-2">Sig Up</div>
+  </div>
+</register-form>

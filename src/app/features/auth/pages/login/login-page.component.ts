@@ -36,9 +36,12 @@ export class LoginPageComponent {
       this._store.dispatch(new SetIsLoading(false))
       if (err) {
         throw new Error('Login failed')
-        return
       }
       void this._router.navigate(['/'])
     }, 1000)
+  }
+
+  public goToCreateAccount(): void {
+    void this._router.navigate(['auth/register'])
   }
 }

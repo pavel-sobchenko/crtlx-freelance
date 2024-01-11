@@ -26,6 +26,7 @@ import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
 export class LoginFormComponent {
   @Input() public loading = false
   @Output() public readonly submitForm = new EventEmitter<LoginData>()
+  @Output() public readonly createAccount = new EventEmitter<void>()
   public formErrors = errors
 
   public form: FormGroup = this._fb.group({

@@ -57,16 +57,24 @@
         {{ formErrors['requiredPassword'] }}
       </div>
     </div>
-    <div class="flex items-baseline">
-      <input
-        class="mr-2 leading-tight"
-        formControlName="remember"
-        id="remember"
-        type="checkbox"
-      />
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="remember">
-        Remember me
-      </label>
+    <div class="flex justify-between align-baseline my-1">
+      <div class="flex items-baseline">
+        <input
+          class="mr-2 leading-tight"
+          formControlName="remember"
+          id="remember"
+          type="checkbox"
+        />
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="remember"
+        >
+          Remember me
+        </label>
+      </div>
+      <div class="text-blue-700 text-sm underline cursor-pointer">
+        <button (click)="createAccount.emit()">Create account</button>
+      </div>
     </div>
     <div class="flex items-center justify-between">
       <input

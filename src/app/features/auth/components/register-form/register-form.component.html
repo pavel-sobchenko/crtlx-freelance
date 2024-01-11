@@ -1,0 +1,115 @@
+<div class="relative">
+  <spinner *ngIf="loading" />
+  <form
+    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 form-middle"
+    [formGroup]="form"
+    (ngSubmit)="registerUser()"
+  >
+    <ng-content></ng-content>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+        Name
+      </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        formControlName="name"
+        id="name"
+        placeholder="Name"
+        type="text"
+      />
+      <div
+        *ngIf="
+          form.controls['name'].touched &&
+          form.controls['name']?.errors?.['required']
+        "
+        class="text-red-500 text-sm mt-1"
+      >
+        {{ formErrors['requiredName'] }}
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+        Email
+      </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        formControlName="email"
+        id="email"
+        placeholder="Email"
+        type="email"
+      />
+      <div
+        *ngIf="
+          form.controls['email'].touched &&
+          form.controls['email']?.errors?.['required']
+        "
+        class="text-red-500 text-sm mt-1"
+      >
+        {{ formErrors['requiredEmail'] }}
+      </div>
+      <div
+        *ngIf="
+          form.controls['email'].touched &&
+          form.controls['email'].errors?.['email']
+        "
+        class="text-red-500 text-sm mt-1"
+      >
+        {{ formErrors['emailFormat'] }}
+      </div>
+    </div>
+    <div *ngIf="validationEmailError" class="text-red-500 text-sm mt-1">
+      {{ validationEmailError }}
+    </div>
+    <div class="mb-6 mt-2">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <div class="flex items-baseline relative">
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="password"
+          id="password"
+          placeholder="Password"
+          [type]="isPasswordVisible ? 'text' : 'password'"
+        />
+        <button
+          class="btn btn-default absolute right-2 top-0 h-full"
+          type="button"
+          (click)="togglePasswordVisibility()"
+        >
+          <i
+            class="fa"
+            [ngClass]="{
+              'fa-eye': isPasswordVisible,
+              'fa-eye-slash': !isPasswordVisible
+            }"
+          ></i>
+        </button>
+      </div>
+      <div
+        *ngIf="
+          form.controls['password'].touched &&
+          form.controls['password']?.errors?.['required']
+        "
+        class="text-red-500 text-sm mt-1"
+      >
+        {{ formErrors['requiredPassword'] }}
+      </div>
+    </div>
+    <div class="flex flex-col gap-1 items-center justify-between">
+      <input
+        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
+        type="submit"
+        value="Create account"
+      />
+      <button
+        class="bg-gray-300 text-gray-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
+        type="button"
+        (click)="returnToSignIn.emit()"
+      >
+        <i class="fa fa-long-arrow-left"></i>
+        Back to Sign In
+      </button>
+    </div>
+  </form>
+</div>
