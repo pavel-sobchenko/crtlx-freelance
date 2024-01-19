@@ -1,6 +1,5 @@
 export type Credentials = {
   email: string
   password: string
+  name?: string
 }
-
-export type RegisterData = { name: string } & Credentials

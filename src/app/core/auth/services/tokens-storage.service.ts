@@ -15,6 +15,7 @@ export class TokensStorageService {
 
   public get(): Tokens {
     const tokens = localStorage.getItem('tokens')
+
     return tokens ? JSON.parse(tokens) : null
   }
 

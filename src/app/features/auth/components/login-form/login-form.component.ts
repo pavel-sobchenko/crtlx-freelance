@@ -1,17 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import {
-  FormGroup,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { errors } from '../../constants/errors'
 import { LoginData } from '../../types/login-data'
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
@@ -21,6 +10,7 @@ import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './login-form.component.html',
+  host: { class: 'relative' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginFormComponent {

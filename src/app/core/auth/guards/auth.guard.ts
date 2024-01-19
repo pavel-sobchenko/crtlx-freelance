@@ -7,6 +7,7 @@ import { map, Observable } from 'rxjs'
 export const authGuard = (): Observable<boolean | UrlTree> => {
   const router = inject(Router)
   const store = inject(Store)
+
   return store.select(AuthStateSelectors.isAuthenticated).pipe(
     map(authenticated => {
       return authenticated || router.createUrlTree(['/auth/login'])

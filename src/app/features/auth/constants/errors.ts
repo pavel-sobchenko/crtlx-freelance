@@ -1,6 +1,4 @@
 export const errors: Record<string, string> = {
-  requiredEmail: 'Email is required',
-  emailFormat: 'Value should be in email format',
-  requiredPassword: 'Password is required',
-  requiredName: 'Name is required'
+  required: 'Field is required',
+  email: 'Field should be in email format'
 }

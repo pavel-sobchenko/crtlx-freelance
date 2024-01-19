@@ -1,40 +1,23 @@
 import { Action, State, StateContext } from '@ngxs/store'
 import { Injectable } from '@angular/core'
 import { AuthService } from '@core/auth/services/auth.service'
-import { catchError, Observable, tap } from 'rxjs'
+import { finalize, Observable, tap } from 'rxjs'
 import { Tokens } from '@core/auth/types/tokens'
 import { TokensStorageService } from '../services/tokens-storage.service'
-import {
-  Login,
-  LogOut,
-  Register,
-  SetIsLoading,
-  SetTokens,
-  ValidateEmail
-} from './auth.actions'
+import { Login, LogOut, Register, SetIsLoading, SetTokens } from './auth.actions'
 import { Router } from '@angular/router'
-import { RegisterData } from '@core/auth/types/credentials'
-import { HttpErrorResponse } from '@angular/common/http'
 
 export interface AuthState {
   tokens?: Tokens
   isAuthenticated?: boolean
   loading?: boolean
-  username?: string
-  email?: string
-  validationEmailError?: string
 }
+
+const defaultState: AuthState = {}
 
 @State<AuthState>({
   name: 'auth',
-  defaults: {
-    tokens: null,
-    isAuthenticated: false,
-    loading: false,
-    username: null,
-    email: null,
-    validationEmailError: null
-  }
+  defaults: defaultState
 })
 @Injectable()
 export class AuthStateService {
@@ -50,6 +33,7 @@ export class AuthStateService {
     { credentials, remember }: Login
   ): Observable<Tokens> {
     dispatch(new SetIsLoading(true))
+
     return this._authService.getToken(credentials).pipe(
       tap(tokens => {
         dispatch(new SetTokens(tokens))
@@ -80,40 +64,15 @@ export class AuthStateService {
     patchState({ loading: isLoading })
   }
 
-  @Action(ValidateEmail)
-  public validateEmail(
-    { dispatch, patchState }: StateContext<AuthState>,
-    { email }: ValidateEmail
-  ): Observable<boolean> {
-    dispatch(new SetIsLoading(true))
-    return this._authService.validateEmail(email).pipe(
-      tap(() => {
-        patchState({ validationEmailError: null })
-      }),
-      catchError((e: HttpErrorResponse) => {
-        const msg = (e.error as ErrorEvent).message
-        patchState({
-          validationEmailError: msg
-        })
-        dispatch(new SetIsLoading(false))
-        throw new Error(msg)
-      })
-    )
-  }
-
   @Action(Register)
   public register(
-    { dispatch, patchState }: StateContext<AuthState>,
-    { userData }: Register
-  ): Observable<RegisterData> {
+    { dispatch }: StateContext<AuthState>,
+    { credentials }: Register
+  ): Observable<number> {
     dispatch(new SetIsLoading(true))
-    return this._authService.register(userData).pipe(
-      tap(() => {
-        patchState({
-          username: userData.name,
-          email: userData.email
-        })
-      })
-    )
+
+    return this._authService
+      .register(credentials)
+      .pipe(finalize(() => dispatch(new SetIsLoading(false))))
   }
 }

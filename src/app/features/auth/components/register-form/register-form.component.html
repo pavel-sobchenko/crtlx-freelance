@@ -1,11 +1,10 @@
-<div class="relative">
-  <spinner *ngIf="loading" />
-  <form
-    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 form-middle"
-    [formGroup]="form"
-    (ngSubmit)="registerUser()"
-  >
-    <ng-content></ng-content>
+<spinner *ngIf="loading" />
+<div class="bg-white shadow-md rounded px-8 pt-4 pb-8 mb-2 form-middle">
+  <ng-content></ng-content>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-2 block text-gray-700 text-md font-bold">
+      <h1>Sign Up</h1>
+    </div>
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
         Name
@@ -24,7 +23,7 @@
         "
         class="text-red-500 text-sm mt-1"
       >
-        {{ formErrors['requiredName'] }}
+        {{ formErrors['require'] }}
       </div>
     </div>
     <div class="mb-2">
@@ -45,20 +44,14 @@
         "
         class="text-red-500 text-sm mt-1"
       >
-        {{ formErrors['requiredEmail'] }}
+        {{ formErrors['required'] }}
       </div>
       <div
-        *ngIf="
-          form.controls['email'].touched &&
-          form.controls['email'].errors?.['email']
-        "
+        *ngIf="form.controls['email'].errors?.['validation']"
         class="text-red-500 text-sm mt-1"
       >
-        {{ formErrors['emailFormat'] }}
+        {{ form.controls['email'].getError('validation').message }}
       </div>
-    </div>
-    <div *ngIf="validationEmailError" class="text-red-500 text-sm mt-1">
-      {{ validationEmailError }}
     </div>
     <div class="mb-6 mt-2">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -93,7 +86,7 @@
         "
         class="text-red-500 text-sm mt-1"
       >
-        {{ formErrors['requiredPassword'] }}
+        {{ formErrors['required'] }}
       </div>
     </div>
     <div class="flex flex-col gap-1 items-center justify-between">

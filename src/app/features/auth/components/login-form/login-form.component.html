@@ -1,11 +1,10 @@
-<div class="relative">
-  <spinner *ngIf="loading" />
-  <form
-    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 form-middle"
-    [formGroup]="form"
-    (ngSubmit)="submit()"
-  >
-    <ng-content></ng-content>
+<spinner *ngIf="loading" />
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 form-middle">
+  <ng-content></ng-content>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-2 block text-gray-700 text-md font-bold">
+      <h1>Sign In</h1>
+    </div>
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
         Email
@@ -24,7 +23,7 @@
         "
         class="text-red-500 text-sm mt-1"
       >
-        {{ formErrors['requiredEmail'] }}
+        {{ formErrors['required'] }}
       </div>
       <div
         *ngIf="
@@ -33,7 +32,7 @@
         "
         class="text-red-500 text-sm mt-1"
       >
-        {{ formErrors['emailFormat'] }}
+        {{ formErrors['email'] }}
       </div>
     </div>
     <div class="mb-6">
@@ -54,7 +53,7 @@
         "
         class="text-red-500 text-sm mt-1"
       >
-        {{ formErrors['requiredPassword'] }}
+        {{ formErrors['required'] }}
       </div>
     </div>
     <div class="flex justify-between align-baseline my-1">
@@ -73,7 +72,7 @@
         </label>
       </div>
       <div class="text-blue-700 text-sm underline cursor-pointer">
-        <button (click)="createAccount.emit()">Create account</button>
+        <button type="button" (click)="createAccount.emit()">Create account</button>
       </div>
     </div>
     <div class="flex items-center justify-between">

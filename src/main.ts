@@ -8,6 +8,8 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin'
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin'
 import { CoreModule } from '@core/core.module'
 import { HttpModule } from '@core/http/http.module'
+import { provideToastr } from "ngx-toastr";
+import { provideAnimations } from "@angular/platform-browser/animations";
 
 void bootstrapApplication(AppComponent, {
   providers: [
@@ -17,7 +19,12 @@ void bootstrapApplication(AppComponent, {
       NgxsReduxDevtoolsPluginModule.forRoot(),
       NgxsLoggerPluginModule.forRoot(),
       CoreModule,
-      HttpModule
-    )
+      HttpModule,
+    ),
+    provideAnimations(),
+    provideToastr({
+      timeOut: 5000,
+      positionClass: 'toast-top-center'
+    })
   ]
 })

@@ -8,11 +8,14 @@ import { firstValueFrom, Observable } from 'rxjs'
 import { LoginData } from '../../types/login-data'
 import to from 'await-to-js'
 import { AuthState } from '@core/auth/state/auth-state.service'
+import { CompanyLogoComponent } from '@shared/components/company-logo/company-logo.component'
+import { ToastrService } from "ngx-toastr"
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [CommonModule, LoginFormComponent],
+  imports: [CommonModule, LoginFormComponent, CompanyLogoComponent],
   templateUrl: './login-page.component.html',
   host: { class: 'flex justify-center items-center h-screen' },
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -20,9 +23,11 @@ import { AuthState } from '@core/auth/state/auth-state.service'
 export class LoginPageComponent {
   @Select((state: { auth: AuthState }) => state.auth.loading)
   public loading$!: Observable<boolean>
+
   constructor(
     private readonly _store: Store,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _toastr: ToastrService
   ) {}
 
   public async login(formData: LoginData): Promise<void> {
@@ -34,14 +39,18 @@ export class LoginPageComponent {
 
     setTimeout(() => {
       this._store.dispatch(new SetIsLoading(false))
+
       if (err) {
+        const error = (err as HttpErrorResponse).error as ErrorEvent
+
+        this._toastr.error(error.message, error.error as string)
         throw new Error('Login failed')
       }
       void this._router.navigate(['/'])
     }, 1000)
   }
 
-  public goToCreateAccount(): void {
+  public goToRegister(): void {
     void this._router.navigate(['auth/register'])
   }
 }

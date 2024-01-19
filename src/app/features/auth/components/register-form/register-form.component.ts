@@ -1,58 +1,47 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import {
-  FormGroup,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { errors } from '../../constants/errors'
-import { RegisterData } from '@core/auth/types/credentials'
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
+import { Credentials } from '@core/auth/types/credentials'
+import { emailValidator } from '@core/auth/validators/emailValidator'
+import { AuthService } from '@core/auth/services/auth.service'
 
 @Component({
   selector: 'register-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './register-form.component.html',
+  host: { class: 'relative' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterFormComponent {
   @Input() public loading = false
-  @Input() public validationEmailError: string | null = null
-  @Output() public register = new EventEmitter<RegisterData>()
-  @Output() public returnToSignIn = new EventEmitter<void>()
+  @Output() public readonly register = new EventEmitter<Credentials>()
+  @Output() public readonly returnToSignIn = new EventEmitter<void>()
   public formErrors = errors
-  public form: FormGroup
   public isPasswordVisible = false
+  public form: FormGroup = this._fb.group({
+    name: ['', [Validators.required]],
+    email: [
+      '',
+      [Validators.required],
+      [emailValidator(this._authService)],
+      { updateOn: 'blur' }
+    ],
+    password: ['', [Validators.required]]
+  })
 
-  constructor(private readonly _fb: NonNullableFormBuilder) {
-    this.form = this._fb.group({
-      name: ['', { validators: [Validators.required] }],
-      email: ['', { validators: [Validators.required, Validators.email] }],
-      password: ['', { validators: [Validators.required] }]
-    })
+  constructor(
+    private readonly _fb: NonNullableFormBuilder,
+    private readonly _authService: AuthService
+  ) {}
 
-    this.form.controls['email'].valueChanges.subscribe(() => {
-      this.validationEmailError = null
-    })
-  }
-
-  public registerUser(): void {
+  public submit(): void {
     this.form.markAllAsTouched()
     if (this.form.invalid) return
 
-    this.register.emit({
-      name: this.form.controls['name'].value as string,
-      email: this.form.controls['email'].value as string,
-      password: this.form.controls['password'].value as string
-    })
+    this.register.emit(this.form.value as Credentials)
   }
 
   public togglePasswordVisibility(): void {
