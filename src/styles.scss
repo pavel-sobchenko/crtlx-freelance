@@ -10,3 +10,16 @@
     }
   }
 }
+
+.nav-item {
+
+  &.active {
+    background-color: lavender;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+  }
+}
+

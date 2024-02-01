@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Store } from '@ngxs/store'
 import { LogOut } from 'src/app/core/auth/state/auth.actions'
-import { Router } from '@angular/router'
+import { Router, RouterLinkActive, RouterLinkWithHref, RouterOutlet } from '@angular/router'
+import { CompanyLogoComponent } from "@shared/components/company-logo/company-logo.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet, CompanyLogoComponent, RouterLinkWithHref, RouterLinkActive],
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
