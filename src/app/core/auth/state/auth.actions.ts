@@ -1,11 +1,11 @@
 import { Tokens } from '../../auth/types/tokens'
-import { Credentials } from '../types/credentials'
+import { Credentials, LoginCredentials } from '../types/credentials'
 
 export class Login {
   public static readonly type = '[Auth] Login'
 
   constructor(
-    public readonly credentials: Credentials,
+    public readonly credentials: LoginCredentials,
     public readonly remember: boolean
   ) {}
 }
@@ -25,12 +25,6 @@ export class SetIsLoading {
 
   constructor(public isLoading: boolean) {}
 }
-
-// export class ValidateEmail {
-//   public static readonly type = '[Auth] Validate Email'
-//
-//   constructor(public email: string) {}
-// }
 
 export class Register {
   public static readonly type = '[Auth] Register'

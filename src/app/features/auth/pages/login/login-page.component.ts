@@ -1,27 +1,28 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Select, Store } from '@ngxs/store'
-import { Login, SetIsLoading } from 'src/app/core/auth/state/auth.actions'
+import { Login } from 'src/app/core/auth/state/auth.actions'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
 import { Router } from '@angular/router'
 import { firstValueFrom, Observable } from 'rxjs'
 import { LoginData } from '../../types/login-data'
 import to from 'await-to-js'
-import { AuthState } from '@core/auth/state/auth-state.service'
-import { CompanyLogoComponent } from '@shared/components/company-logo/company-logo.component'
-import { ToastrService } from "ngx-toastr"
-import { HttpErrorResponse } from "@angular/common/http";
+import { ToastrService } from 'ngx-toastr'
+import { HttpErrorResponse } from '@angular/common/http'
+import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
+import { ResponseError } from "@core/auth/types/response-error";
+import { AuthStateSelectors } from "@core/auth/state/auth.selectors";
 
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [CommonModule, LoginFormComponent, CompanyLogoComponent],
+  imports: [CommonModule, LoginFormComponent, SpinnerComponent],
   templateUrl: './login-page.component.html',
   host: { class: 'flex justify-center items-center h-screen' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
-  @Select((state: { auth: AuthState }) => state.auth.loading)
+  @Select(AuthStateSelectors.isLoading)
   public loading$!: Observable<boolean>
 
   constructor(
@@ -31,26 +32,19 @@ export class LoginPageComponent {
   ) {}
 
   public async login(formData: LoginData): Promise<void> {
-    const [err] = await to(
+    const [error] = await to(
       firstValueFrom(
-        this._store.dispatch(new Login(formData.credentials, formData.remember))
+        this._store.dispatch(new Login(formData, formData.remember))
       )
     )
 
-    setTimeout(() => {
-      this._store.dispatch(new SetIsLoading(false))
+    if (error) {
+      const loginError = (error as HttpErrorResponse).error as ResponseError
 
-      if (err) {
-        const error = (err as HttpErrorResponse).error as ErrorEvent
+      this._toastr.error(loginError.message, loginError.error )
 
-        this._toastr.error(error.message, error.error as string)
-        throw new Error('Login failed')
-      }
-      void this._router.navigate(['/'])
-    }, 1000)
-  }
-
-  public goToRegister(): void {
-    void this._router.navigate(['auth/register'])
+      return
+    }
+    void await this._router.navigate(['/'])
   }
 }

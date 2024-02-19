@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common'
   standalone: true,
   imports: [CommonModule],
   templateUrl: './spinner.component.html',
+  host: { class: 'absolute z-10' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpinnerComponent {}

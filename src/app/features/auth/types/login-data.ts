@@ -1,3 +1,3 @@
-import { Credentials } from '@core/auth/types/credentials'
+import { LoginCredentials } from '@core/auth/types/credentials'
 
-export type LoginData = { credentials: Credentials; remember: boolean }
+export type LoginData = LoginCredentials & { remember: boolean }

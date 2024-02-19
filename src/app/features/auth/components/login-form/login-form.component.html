@@ -1,86 +1,55 @@
-<spinner *ngIf="loading" />
-<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 form-middle">
-  <ng-content></ng-content>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="mb-2 block text-gray-700 text-md font-bold">
-      <h1>Sign In</h1>
-    </div>
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-        Email
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h3>Sign In</h3>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+      Email
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      formControlName="email"
+      id="email"
+      placeholder="Email"
+      type="email"
+    />
+    <validation-message class="text-red-500 text-sm mt-1" [control]="form.controls['email']" />
+  </div>
+  <div class="mb-6">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+      Password
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      formControlName="password"
+      id="password"
+      placeholder="Password"
+      type="password"
+    />
+    <validation-message class="text-red-500 text-sm mt-1" [control]="form.controls['password']" />
+  </div>
+  <div class="flex justify-between align-baseline my-1">
+    <div class="flex items-baseline">
+      <input
+        class="mr-2 leading-tight"
+        formControlName="remember"
+        id="remember"
+        type="checkbox"
+      />
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="remember"
+      >
+        Remember me
       </label>
-      <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        formControlName="email"
-        id="email"
-        placeholder="Email"
-        type="email"
-      />
-      <div
-        *ngIf="
-          form.controls['email'].touched &&
-          form.controls['email']?.errors?.['required']
-        "
-        class="text-red-500 text-sm mt-1"
-      >
-        {{ formErrors['required'] }}
-      </div>
-      <div
-        *ngIf="
-          form.controls['email'].touched &&
-          form.controls['email'].errors?.['email']
-        "
-        class="text-red-500 text-sm mt-1"
-      >
-        {{ formErrors['email'] }}
-      </div>
     </div>
-    <div class="mb-6">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-        Password
-      </label>
-      <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        formControlName="password"
-        id="password"
-        placeholder="Password"
-        type="password"
-      />
-      <div
-        *ngIf="
-          form.controls['password'].touched &&
-          form.controls['password']?.errors?.['required']
-        "
-        class="text-red-500 text-sm mt-1"
-      >
-        {{ formErrors['required'] }}
-      </div>
+    <div class="text-blue-700 text-sm underline cursor-pointer">
+      <a href="" (click)="navigate($event)">Create account</a>
     </div>
-    <div class="flex justify-between align-baseline my-1">
-      <div class="flex items-baseline">
-        <input
-          class="mr-2 leading-tight"
-          formControlName="remember"
-          id="remember"
-          type="checkbox"
-        />
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="remember"
-        >
-          Remember me
-        </label>
-      </div>
-      <div class="text-blue-700 text-sm underline cursor-pointer">
-        <button type="button" (click)="createAccount.emit()">Create account</button>
-      </div>
-    </div>
-    <div class="flex items-center justify-between">
-      <input
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
-        type="submit"
-        value="Sign In"
-      />
-    </div>
-  </form>
-</div>
+  </div>
+  <div class="flex items-center justify-between">
+    <input
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
+      type="submit"
+      value="Sign In"
+    />
+  </div>
+</form>

@@ -35,10 +35,11 @@ export class AuthStateService {
     dispatch(new SetIsLoading(true))
 
     return this._authService.getToken(credentials).pipe(
-      tap(tokens => {
-        dispatch(new SetTokens(tokens))
-        remember && this._tokenStorageService.set(tokens)
-      })
+        tap(tokens => {
+          dispatch(new SetTokens(tokens))
+          remember && this._tokenStorageService.set(tokens)
+      }),
+        finalize(() => dispatch(new SetIsLoading(false)))
     )
   }
 
