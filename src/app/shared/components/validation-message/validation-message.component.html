@@ -1,1 +1,3 @@
-<ng-container *ngIf="errorMessage !== null">{{ errorMessage }}</ng-container>
+<small *ngFor="let error of errors | keyvalue | slice: 0 : 1">
+  {{ _errorMessages[error.key] || error.value }}
+</small>

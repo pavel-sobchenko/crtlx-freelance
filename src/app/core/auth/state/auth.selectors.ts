@@ -14,7 +14,7 @@ export class AuthStateSelectors {
   }
 
   @Selector([AuthStateService])
-  public static isLoading({ loading }: AuthState): boolean {
+  public static loading({ loading }: AuthState): boolean {
     return loading
   }
 }

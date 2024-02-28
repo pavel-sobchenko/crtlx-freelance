@@ -2,15 +2,20 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 import { CommonModule } from '@angular/common'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Credentials } from '@core/auth/types/credentials'
-import { emailUniqueValidator } from '@core/auth/validators/emailUniqueValidator'
+import { uniqueEmailValidator } from '@core/auth/validators/unique-email-validator'
 import { AuthService } from '@core/auth/services/auth.service'
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component'
-import { ActivatedRoute, Router } from '@angular/router'
+import { Router, RouterLinkWithHref } from '@angular/router'
 
 @Component({
   selector: 'register-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ValidationMessageComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ValidationMessageComponent,
+    RouterLinkWithHref
+  ],
   templateUrl: './register-form.component.html',
   host: { class: 'relative' },
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,7 +28,7 @@ export class RegisterFormComponent {
     email: [
       '',
       [Validators.required, Validators.email],
-      [emailUniqueValidator(this._authService)],
+      [uniqueEmailValidator(this._authService)],
       { updateOn: 'blur' }
     ],
     password: ['', [Validators.required]]
@@ -32,8 +37,7 @@ export class RegisterFormComponent {
   constructor(
     private readonly _fb: NonNullableFormBuilder,
     private readonly _authService: AuthService,
-    private readonly _router: Router,
-    private readonly _route: ActivatedRoute,
+    private readonly _router: Router
   ) {}
 
   public submit(): void {
@@ -45,11 +49,5 @@ export class RegisterFormComponent {
 
   public togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible
-  }
-
-  public navigate(e: MouseEvent): void {
-    e.preventDefault()
-    void this._router.navigate(['/auth/login'], { relativeTo: this._route.parent })
-
   }
 }

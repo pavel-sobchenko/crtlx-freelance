@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { Tokens } from '../types/tokens'
 import { Credentials, LoginCredentials } from '../types/credentials'
+import { ValidationErrors } from '@angular/forms'
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ import { Credentials, LoginCredentials } from '../types/credentials'
 export class AuthService {
   constructor(private readonly _http: HttpClient) {}
 
-  public getToken(credentials: LoginCredentials): Observable<Tokens> {
+  public getToken({ email, password }: LoginCredentials): Observable<Tokens> {
     return this._http.get<Tokens>(`/api/auth/token`, {
-      params: new HttpParams({ fromObject: credentials })
+      params: new HttpParams({ fromObject: { email, password } })
     })
   }
 
@@ -20,7 +21,7 @@ export class AuthService {
     return this._http.post<number>('/api/auth/sign-up', credentials)
   }
 
-  public validateEmail(email: string): Observable<unknown> {
+  public validateEmail(email: string): Observable<ValidationErrors> {
     return this._http.post(`/api/auth/sign-up/validate`, {
       email
     })

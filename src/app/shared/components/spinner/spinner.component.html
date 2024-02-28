@@ -1,1 +1,8 @@
-<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+<i
+  class="fa fa-spinner fa-pulse fa-fw"
+  [ngClass]="{
+    'fa-5x': size === 'lg',
+    'fa-3x': size === 'md'
+  }"
+  [ngStyle]="{ color: color }"
+></i>

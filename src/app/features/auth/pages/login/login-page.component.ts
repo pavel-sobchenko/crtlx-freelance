@@ -4,14 +4,14 @@ import { Select, Store } from '@ngxs/store'
 import { Login } from 'src/app/core/auth/state/auth.actions'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
 import { Router } from '@angular/router'
-import { firstValueFrom, Observable } from 'rxjs'
-import { LoginData } from '../../types/login-data'
+import { catchError, firstValueFrom, Observable } from 'rxjs'
 import to from 'await-to-js'
 import { ToastrService } from 'ngx-toastr'
 import { HttpErrorResponse } from '@angular/common/http'
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
-import { ResponseError } from "@core/auth/types/response-error";
-import { AuthStateSelectors } from "@core/auth/state/auth.selectors";
+import { ErrorResponse } from '@shared/types/error-response'
+import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
+import { LoginCredentials } from '@core/auth/types/credentials'
 
 @Component({
   selector: 'login',
@@ -22,7 +22,7 @@ import { AuthStateSelectors } from "@core/auth/state/auth.selectors";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
-  @Select(AuthStateSelectors.isLoading)
+  @Select(AuthStateSelectors.loading)
   public loading$!: Observable<boolean>
 
   constructor(
@@ -31,20 +31,22 @@ export class LoginPageComponent {
     private readonly _toastr: ToastrService
   ) {}
 
-  public async login(formData: LoginData): Promise<void> {
-    const [error] = await to(
-      firstValueFrom(
-        this._store.dispatch(new Login(formData, formData.remember))
+  public async login(formData: LoginCredentials): Promise<void> {
+    const [error] = await to<Login, HttpErrorResponse>(
+      firstValueFrom<Login>(
+        this._store
+          .dispatch(new Login(formData))
+          .pipe(catchError((e: HttpErrorResponse) => Promise.reject(e)))
       )
     )
 
     if (error) {
-      const loginError = (error as HttpErrorResponse).error as ResponseError
+      const loginError = error.error as ErrorResponse
 
-      this._toastr.error(loginError.message, loginError.error )
+      this._toastr.error(loginError.message, loginError.error)
 
       return
     }
-    void await this._router.navigate(['/'])
+    await this._router.navigate(['/'])
   }
 }

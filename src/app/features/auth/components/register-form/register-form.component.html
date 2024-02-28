@@ -11,9 +11,11 @@
       placeholder="Name"
       type="text"
     />
-    <validation-message 
-            class="text-red-500 text-sm mt-1" 
-            [control]="form.controls['name']" />
+    <validation-message
+      *ngIf="form.controls['name'].touched"
+      class="text-red-500 text-sm mt-1"
+      [errors]="form.controls['name'].errors"
+    />
   </div>
   <div class="mb-2">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -27,8 +29,10 @@
       type="email"
     />
     <validation-message
-            class="text-red-500 text-sm mt-1"
-            [control]="form.controls['email']" />
+      *ngIf="form.controls['email'].touched"
+      class="text-red-500 text-sm mt-1"
+      [errors]="form.controls['email'].errors"
+    />
   </div>
   <div class="mb-6 mt-2">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -57,8 +61,10 @@
       </button>
     </div>
     <validation-message
-            class="text-red-500 text-sm mt-1"
-            [control]="form.controls['password']" />
+      *ngIf="form.controls['password'].touched"
+      class="text-red-500 text-sm mt-1"
+      [errors]="form.controls['password'].errors"
+    />
   </div>
   <div class="flex flex-col gap-1 items-center justify-between">
     <input
@@ -66,8 +72,10 @@
       type="submit"
       value="Create account"
     />
-    <div class="bg-gray-300 text-gray-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center w-full cursor-pointer">
-      <a href="" (click)="navigate($event)">
+    <div
+      class="bg-gray-300 text-gray-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center w-full cursor-pointer"
+    >
+      <a routerLink="/auth/login">
         <i class="fa fa-long-arrow-left"></i>
         Back to Sign In
       </a>

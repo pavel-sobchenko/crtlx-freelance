@@ -1,7 +1,7 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core'
 
-export const ERROR_VALIDATION = new InjectionToken<Record<string, string>>('Error validation', {
-    factory: () => errors
+export const ERRORS = new InjectionToken<Record<string, string>>('ERRORS', {
+  factory: () => errors
 })
 
 export const errors: Record<string, string> = {

@@ -4,10 +4,7 @@ import { Credentials, LoginCredentials } from '../types/credentials'
 export class Login {
   public static readonly type = '[Auth] Login'
 
-  constructor(
-    public readonly credentials: LoginCredentials,
-    public readonly remember: boolean
-  ) {}
+  constructor(public readonly credentials: LoginCredentials) {}
 }
 
 export class LogOut {
@@ -17,17 +14,17 @@ export class LogOut {
 export class SetTokens {
   public static readonly type = '[Auth] Set Tokens'
 
-  constructor(public tokens: Tokens) {}
+  constructor(public readonly tokens: Tokens) {}
 }
 
 export class SetIsLoading {
   public static readonly type = '[Auth] Set Is Loading'
 
-  constructor(public isLoading: boolean) {}
+  constructor(public readonly loading: boolean) {}
 }
 
 export class Register {
   public static readonly type = '[Auth] Register'
 
-  constructor(public credentials: Credentials) {}
+  constructor(public readonly credentials: Credentials) {}
 }

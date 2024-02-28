@@ -11,7 +11,11 @@
       placeholder="Email"
       type="email"
     />
-    <validation-message class="text-red-500 text-sm mt-1" [control]="form.controls['email']" />
+    <validation-message
+      *ngIf="form.controls['email'].touched"
+      class="text-red-500 text-sm mt-1"
+      [errors]="form.controls['email'].errors"
+    />
   </div>
   <div class="mb-6">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -24,7 +28,11 @@
       placeholder="Password"
       type="password"
     />
-    <validation-message class="text-red-500 text-sm mt-1" [control]="form.controls['password']" />
+    <validation-message
+      *ngIf="form.controls['password'].touched"
+      class="text-red-500 text-sm mt-1"
+      [errors]="form.controls['password'].errors"
+    />
   </div>
   <div class="flex justify-between align-baseline my-1">
     <div class="flex items-baseline">
@@ -34,15 +42,12 @@
         id="remember"
         type="checkbox"
       />
-      <label
-        class="block text-gray-700 text-sm font-bold mb-2"
-        for="remember"
-      >
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="remember">
         Remember me
       </label>
     </div>
     <div class="text-blue-700 text-sm underline cursor-pointer">
-      <a href="" (click)="navigate($event)">Create account</a>
+      <a routerLink="/auth/register">Create account</a>
     </div>
   </div>
   <div class="flex items-center justify-between">

@@ -1,10 +1,8 @@
-<spinner *ngIf="loading$ | async" />
+<spinner *ngIf="loading$ | async" size="lg" />
 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 form-middle">
-    <div class="mb-4 flex gap-2">
-        <img alt="" src="assets/icons/Logo.svg" />
-        <h1>Freenance</h1>
-    </div>
-  <login-form
-    (submitForm)="login($event)"
-   />
+  <div class="mb-4 flex gap-2">
+    <img alt="" src="assets/icons/Logo.svg" />
+    <h1>Freenance</h1>
+  </div>
+  <login-form (submitForm)="login($event)" />
 </div>

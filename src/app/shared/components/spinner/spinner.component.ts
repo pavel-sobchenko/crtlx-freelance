@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 @Component({
@@ -9,4 +9,7 @@ import { CommonModule } from '@angular/common'
   host: { class: 'absolute z-10' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SpinnerComponent {}
+export class SpinnerComponent {
+  @Input() public size: 'sm' | 'md' | 'lg' = 'sm'
+  @Input() public color: string
+}
