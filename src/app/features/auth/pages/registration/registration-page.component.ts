@@ -11,12 +11,18 @@ import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
 import { ToastrService } from 'ngx-toastr'
 import { HttpErrorResponse } from '@angular/common/http'
 import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
-import { ErrorResponse } from '@shared/types/error-response'
+import { LogoComponent } from '@shared/components/logo/logo.component'
+import { ErrorResponse } from '@core/auth/types/error-response'
 
 @Component({
   selector: 'registration',
   standalone: true,
-  imports: [CommonModule, RegisterFormComponent, SpinnerComponent],
+  imports: [
+    CommonModule,
+    RegisterFormComponent,
+    SpinnerComponent,
+    LogoComponent
+  ],
   templateUrl: './registration-page.component.html',
   host: { class: 'flex justify-center items-center h-screen' },
   changeDetection: ChangeDetectionStrategy.OnPush

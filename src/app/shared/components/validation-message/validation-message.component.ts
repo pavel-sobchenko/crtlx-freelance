@@ -8,6 +8,7 @@ import { ValidationErrors } from '@angular/forms'
   standalone: true,
   imports: [CommonModule],
   templateUrl: './validation-message.component.html',
+  host: { class: 'text-red-500 text-sm mt-1' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValidationMessageComponent {
@@ -17,6 +18,6 @@ export class ValidationMessageComponent {
 
   constructor(
     @Inject(ERRORS)
-    public readonly _errorMessages: Record<string, string>
+    public readonly errorMessages: Record<string, string>
   ) {}
 }

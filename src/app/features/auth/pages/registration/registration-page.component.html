@@ -1,8 +1,5 @@
 <spinner *ngIf="loading$ | async" size="lg" />
 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 form-middle">
-  <div class="mb-4 flex gap-2">
-    <img alt="" src="assets/icons/Logo.svg" />
-    <h1>Freenance</h1>
-  </div>
+  <logo title="Freenance" src="assets/icons/Logo.svg" alt="Freenance logo" />
   <register-form (register)="register($event)" />
 </div>

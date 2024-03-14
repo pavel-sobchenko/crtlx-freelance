@@ -3,7 +3,7 @@ import { catchError, delay, Observable, of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
 import { AuthService } from '@core/auth/services/auth.service'
 import { HttpErrorResponse } from '@angular/common/http'
-import { ErrorResponse } from '@shared/types/error-response'
+import { ErrorResponse } from '@core/auth/types/error-response'
 
 export function uniqueEmailValidator(
   authService: AuthService

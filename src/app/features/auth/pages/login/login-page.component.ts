@@ -9,14 +9,15 @@ import to from 'await-to-js'
 import { ToastrService } from 'ngx-toastr'
 import { HttpErrorResponse } from '@angular/common/http'
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
-import { ErrorResponse } from '@shared/types/error-response'
 import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
 import { LoginCredentials } from '@core/auth/types/credentials'
+import { LogoComponent } from '@shared/components/logo/logo.component'
+import { ErrorResponse } from '@core/auth/types/error-response'
 
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [CommonModule, LoginFormComponent, SpinnerComponent],
+  imports: [CommonModule, LoginFormComponent, SpinnerComponent, LogoComponent],
   templateUrl: './login-page.component.html',
   host: { class: 'flex justify-center items-center h-screen' },
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -47,6 +48,7 @@ export class LoginPageComponent {
 
       return
     }
+
     await this._router.navigate(['/'])
   }
 }
