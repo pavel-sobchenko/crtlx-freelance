@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { RegisterFormComponent } from '../../components/register-form/register-form.component'
 import { Select, Store } from '@ngxs/store'
 import { ActivatedRoute, Router } from '@angular/router'
-import { catchError, firstValueFrom, Observable } from 'rxjs'
+import { firstValueFrom, Observable } from 'rxjs'
 import to from 'await-to-js'
 import { Register } from '@core/auth/state/auth.actions'
 import { Credentials } from '@core/auth/types/credentials'
@@ -39,23 +39,18 @@ export class RegistrationPageComponent {
   ) {}
 
   public async register(credentials: Credentials): Promise<void> {
-    const [error] = await to<Register, HttpErrorResponse>(
-      firstValueFrom(
-        this._store
-          .dispatch(new Register(credentials))
-          .pipe(catchError((e: HttpErrorResponse) => Promise.reject(e)))
-      )
+    const [error] = await to<unknown, HttpErrorResponse>(
+      firstValueFrom(this._store.dispatch(new Register(credentials)))
     )
 
     if (error) {
       const registerError = error.error as ErrorResponse
 
-      this._toastr.error(registerError.message, registerError.error)
-
-      return
+      return this._toastr.error(registerError.message, registerError.error)
     }
     this._toastr.success('Registration successful!', 'Success')
-    await this._router.navigate(['/auth/login'], {
+
+    return void this._router.navigate(['/auth/login'], {
       relativeTo: this._route.parent
     })
   }

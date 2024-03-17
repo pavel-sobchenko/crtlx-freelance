@@ -4,7 +4,7 @@ import { Select, Store } from '@ngxs/store'
 import { Login } from 'src/app/core/auth/state/auth.actions'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
 import { Router } from '@angular/router'
-import { catchError, firstValueFrom, Observable } from 'rxjs'
+import { firstValueFrom, Observable } from 'rxjs'
 import to from 'await-to-js'
 import { ToastrService } from 'ngx-toastr'
 import { HttpErrorResponse } from '@angular/common/http'
@@ -33,22 +33,14 @@ export class LoginPageComponent {
   ) {}
 
   public async login(formData: LoginCredentials): Promise<void> {
-    const [error] = await to<Login, HttpErrorResponse>(
-      firstValueFrom<Login>(
-        this._store
-          .dispatch(new Login(formData))
-          .pipe(catchError((e: HttpErrorResponse) => Promise.reject(e)))
-      )
+    const [error] = await to<unknown, HttpErrorResponse>(
+      firstValueFrom(this._store.dispatch(new Login(formData)))
     )
 
-    if (error) {
-      const loginError = error.error as ErrorResponse
+    if (!error) return void this._router.navigate(['/'])
 
-      this._toastr.error(loginError.message, loginError.error)
+    const loginError = error.error as ErrorResponse
 
-      return
-    }
-
-    await this._router.navigate(['/'])
+    this._toastr.error(loginError.message, loginError.error)
   }
 }
