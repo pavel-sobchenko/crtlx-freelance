@@ -1,7 +1,1 @@
-<login-form [loading]="loading$ | async" (submitForm)="login($event)">
-  <div class="mb-4 flex items-start">
-    <img alt="" src="../../../../../assets/icons/Logo.svg" />
-    <div class="block text-gray-700 text-lg font-bold ml-2 mb-2">Freenance</div>
-  </div>
-  <div class="block text-gray-700 text-md font-bold mb-2">Sig In</div>
-</login-form>
+<login-form (submitForm)="login($event)" />

@@ -1,0 +1,81 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h3>Sign Up</h3>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+      Name
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      formControlName="name"
+      id="name"
+      placeholder="Name"
+      type="text"
+    />
+    <validation-message
+      *ngIf="form.controls['name'].touched"
+      [errors]="form.controls['name'].errors"
+    />
+  </div>
+  <div class="mb-2">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+      Email
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      formControlName="email"
+      id="email"
+      placeholder="Email"
+      type="email"
+    />
+    <validation-message
+      *ngIf="form.controls['email'].touched"
+      [errors]="form.controls['email'].errors"
+    />
+  </div>
+  <div class="mb-6 mt-2">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+      Password
+    </label>
+    <div class="flex items-baseline relative">
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        formControlName="password"
+        id="password"
+        placeholder="Password"
+        [type]="isPasswordVisible ? 'text' : 'password'"
+      />
+      <button
+        class="btn btn-default absolute right-2 top-0 h-full"
+        type="button"
+        (click)="togglePasswordVisibility()"
+      >
+        <i
+          class="fa"
+          [ngClass]="{
+            'fa-eye': isPasswordVisible,
+            'fa-eye-slash': !isPasswordVisible
+          }"
+        ></i>
+      </button>
+    </div>
+    <validation-message
+      *ngIf="form.controls['password'].touched"
+      [errors]="form.controls['password'].errors"
+    />
+  </div>
+  <div class="flex flex-col gap-1 items-center justify-between">
+    <input
+      class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
+      type="submit"
+      value="Create account"
+    />
+    <div
+      class="bg-gray-300 text-gray-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center w-full cursor-pointer"
+    >
+      <a routerLink="/auth/login">
+        <i class="fa fa-long-arrow-left"></i>
+        Back to Sign In
+      </a>
+    </div>
+  </div>
+</form>

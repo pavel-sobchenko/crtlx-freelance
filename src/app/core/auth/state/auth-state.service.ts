@@ -1,10 +1,10 @@
 import { Action, State, StateContext } from '@ngxs/store'
 import { Injectable } from '@angular/core'
 import { AuthService } from '@core/auth/services/auth.service'
-import { Observable, tap } from 'rxjs'
+import { finalize, Observable, tap } from 'rxjs'
 import { Tokens } from '@core/auth/types/tokens'
 import { TokensStorageService } from '../services/tokens-storage.service'
-import { Login, LogOut, SetIsLoading, SetTokens } from './auth.actions'
+import { Login, LogOut, Register, SetIsLoading, SetTokens } from './auth.actions'
 import { Router } from '@angular/router'
 
 export interface AuthState {
@@ -13,13 +13,11 @@ export interface AuthState {
   loading?: boolean
 }
 
+const defaultState: AuthState = {}
+
 @State<AuthState>({
   name: 'auth',
-  defaults: {
-    tokens: null,
-    isAuthenticated: false,
-    loading: false
-  }
+  defaults: defaultState
 })
 @Injectable()
 export class AuthStateService {
@@ -32,14 +30,16 @@ export class AuthStateService {
   @Action(Login)
   public login(
     { dispatch }: StateContext<AuthState>,
-    { credentials, remember }: Login
+    { credentials }: Login
   ): Observable<Tokens> {
     dispatch(new SetIsLoading(true))
+
     return this._authService.getToken(credentials).pipe(
       tap(tokens => {
         dispatch(new SetTokens(tokens))
-        remember && this._tokenStorageService.set(tokens)
-      })
+        credentials.remember && this._tokenStorageService.set(tokens)
+      }),
+      finalize(() => dispatch(new SetIsLoading(false)))
     )
   }
 
@@ -60,8 +60,20 @@ export class AuthStateService {
   @Action(SetIsLoading)
   public setIsLoading(
     { patchState }: StateContext<AuthState>,
-    { isLoading }: SetIsLoading
+    { loading }: SetIsLoading
   ): void {
-    patchState({ loading: isLoading })
+    patchState({ loading })
+  }
+
+  @Action(Register)
+  public register(
+    { dispatch }: StateContext<AuthState>,
+    { credentials }: Register
+  ): Observable<number> {
+    dispatch(new SetIsLoading(true))
+
+    return this._authService
+      .register(credentials)
+      .pipe(finalize(() => dispatch(new SetIsLoading(false))))
   }
 }

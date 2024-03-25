@@ -1,0 +1,3 @@
+<small *ngFor="let error of errors | keyvalue | slice: 0 : 1">
+  {{ errorMessages[error.key] || error.value }}
+</small>
