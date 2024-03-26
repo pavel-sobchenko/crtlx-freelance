@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'clients',
@@ -8,6 +8,4 @@ import { CommonModule } from '@angular/common';
   templateUrl: './clients.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ClientsComponent {
-
-}
+export class ClientsComponent {}

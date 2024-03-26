@@ -12,7 +12,9 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./features/app-layer/app-layer.routes').then(m => m.appLayerRoutes),
+      import('./features/app-layer/app-layer.routes').then(
+        m => m.appLayerRoutes
+      ),
     canActivate: [authGuard]
   }
 ]

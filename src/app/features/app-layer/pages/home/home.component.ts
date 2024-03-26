@@ -3,12 +3,18 @@ import { CommonModule } from '@angular/common'
 import { Store } from '@ngxs/store'
 import { LogOut } from 'src/app/core/auth/state/auth.actions'
 import { Router, RouterLinkActive, RouterLinkWithHref, RouterOutlet } from '@angular/router'
-import { CompanyLogoComponent } from "@shared/components/company-logo/company-logo.component";
+import { LogoComponent } from '@shared/components/logo/logo.component'
 
 @Component({
-  selector: 'app-home',
+  selector: 'home',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, CompanyLogoComponent, RouterLinkWithHref, RouterLinkActive],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    LogoComponent,
+    RouterLinkWithHref,
+    RouterLinkActive
+  ],
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

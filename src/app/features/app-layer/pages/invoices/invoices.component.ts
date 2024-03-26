@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'invoices',
@@ -8,6 +8,4 @@ import { CommonModule } from '@angular/common';
   templateUrl: './invoices.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoicesComponent {
-
-}
+export class InvoicesComponent {}
