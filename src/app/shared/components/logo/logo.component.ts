@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 @Component({
-  selector: 'spinner',
+  selector: 'logo',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './spinner.component.html',
-  host: { class: 'absolute z-10' },
+  templateUrl: './logo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SpinnerComponent {
-  @Input() public size: 'sm' | 'md' | 'lg' = 'sm'
-  @Input() public color: string
+export class LogoComponent {
+  @Input({ required: true }) public src: string
+  @Input() public alt: string
+  @Input() public title: string
 }

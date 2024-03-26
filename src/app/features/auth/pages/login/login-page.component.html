@@ -1,7 +1,1 @@
-<login-form
-  [loading]="loading$ | async"
-  (submitForm)="login($event)"
-  (createAccount)="goToRegister()"
->
-  <company-logo />
-</login-form>
+<login-form (submitForm)="login($event)" />

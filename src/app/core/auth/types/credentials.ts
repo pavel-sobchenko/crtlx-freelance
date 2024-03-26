@@ -1,5 +1,7 @@
 export type Credentials = {
   email: string
   password: string
-  name?: string
+  name: string
 }
+
+export type LoginCredentials = Omit<Credentials, 'name'> & { remember: boolean }

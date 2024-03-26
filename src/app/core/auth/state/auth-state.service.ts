@@ -30,15 +30,16 @@ export class AuthStateService {
   @Action(Login)
   public login(
     { dispatch }: StateContext<AuthState>,
-    { credentials, remember }: Login
+    { credentials }: Login
   ): Observable<Tokens> {
     dispatch(new SetIsLoading(true))
 
     return this._authService.getToken(credentials).pipe(
       tap(tokens => {
         dispatch(new SetTokens(tokens))
-        remember && this._tokenStorageService.set(tokens)
-      })
+        credentials.remember && this._tokenStorageService.set(tokens)
+      }),
+      finalize(() => dispatch(new SetIsLoading(false)))
     )
   }
 
@@ -59,9 +60,9 @@ export class AuthStateService {
   @Action(SetIsLoading)
   public setIsLoading(
     { patchState }: StateContext<AuthState>,
-    { isLoading }: SetIsLoading
+    { loading }: SetIsLoading
   ): void {
-    patchState({ loading: isLoading })
+    patchState({ loading })
   }
 
   @Action(Register)

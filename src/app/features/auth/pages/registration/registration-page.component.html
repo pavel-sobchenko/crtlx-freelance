@@ -1,7 +1,1 @@
-<register-form
-  [loading]="loading$ | async"
-  (register)="register($event)"
-  (returnToSignIn)="goToLogin()"
->
-  <company-logo />
-</register-form>
+<register-form (register)="register($event)" />
