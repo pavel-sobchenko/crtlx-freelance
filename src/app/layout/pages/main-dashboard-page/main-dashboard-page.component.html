@@ -1,10 +1,20 @@
-<div class="flex h-screen bg-gray-200">
-  <div class="flex flex-col w-1/4 bg-white text-gray-800 p-4">
-    <logo title="Freenance" src="assets/icons/Logo.svg" alt="Freenance logo" />
-    <navigation-panel />
+<div class="flex h-screen bg-gray-50">
+  <div class="flex w-1/5 flex-col bg-white p-4">
+    <div class="logo m-2">
+      <logo
+        title="Freenance"
+        src="assets/icons/Logo.svg"
+        alt="Freenance logo"
+      />
+    </div>
+    <div class="grow">
+      <navigation-panel />
+    </div>
   </div>
 
-  <div class="w-3/4 p-4">
+  <div
+    class="w-4/5 m-4 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700"
+  >
     <router-outlet />
   </div>
 </div>
