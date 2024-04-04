@@ -1,0 +1,41 @@
+<div class="nav-items">
+  <ul>
+    <li>
+      <div
+        class="nav-item hover:bg-blue-100 cursor-pointer p-2 m-1 rounded"
+        routerLink="/clients"
+        routerLinkActive="bg-blue-200"
+      >
+        <i class="fa fa-users px-2"></i>
+        Clients
+      </div>
+    </li>
+    <li>
+      <div
+        class="nav-item hover:bg-blue-100 cursor-pointer p-2 m-1 rounded"
+        routerLink="/invoices"
+        routerLinkActive="bg-blue-200"
+      >
+        <i class="fa fa-file-text px-2"></i>
+        Invoices
+      </div>
+    </li>
+    <li>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-1 rounded focus:outline-none focus:shadow-outline cursor-pointer"
+        type="button"
+        (click)="logout()"
+      >
+        Logout(testing)
+      </button>
+    </li>
+  </ul>
+</div>
+<div
+  class="settings p-2 m-1 rounded hover:bg-blue-100 cursor-pointer"
+  routerLink="/settings"
+  routerLinkActive="bg-blue-200"
+>
+  <i class="fa fa-cog px-2"></i>
+  Settings
+</div>

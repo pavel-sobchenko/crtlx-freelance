@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common'
   selector: 'settings',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './settings.component.html',
+  templateUrl: './settings-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsComponent {}
+export class SettingsPageComponent {}

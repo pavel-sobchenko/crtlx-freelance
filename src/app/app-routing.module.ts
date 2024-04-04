@@ -12,8 +12,8 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./features/app-layer/app-layer.routes').then(
-        m => m.appLayerRoutes
+      import('./features/project-features.module').then(
+        m => m.projectFeaturesModule
       ),
     canActivate: [authGuard]
   }
