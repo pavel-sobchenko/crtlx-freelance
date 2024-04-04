@@ -6,13 +6,13 @@ import { Store } from '@ngxs/store'
 import { LogOut } from '@core/auth/state/auth.actions'
 
 @Component({
-  selector: 'navigation-panel',
+  selector: 'sidebar',
   standalone: true,
   imports: [CommonModule, LogoComponent, RouterLinkWithHref, RouterLinkActive],
-  templateUrl: './navigation-panel.component.html',
+  templateUrl: './sidebar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationPanelComponent {
+export class SideBarComponent {
   constructor(
     private readonly _store: Store,
     private readonly _router: Router
