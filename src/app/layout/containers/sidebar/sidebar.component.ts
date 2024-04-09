@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common'
 import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router'
 import { LogoComponent } from '@shared/components/logo/logo.component'
 import { Store } from '@ngxs/store'
-import { LogOut } from '@core/auth/state/auth.actions'
+import { NavigationBarComponent } from "../../components/navigation-bar/navigation-bar.component";
 
 @Component({
   selector: 'sidebar',
   standalone: true,
-  imports: [CommonModule, LogoComponent, RouterLinkWithHref, RouterLinkActive],
+  imports: [CommonModule, LogoComponent, RouterLinkWithHref, RouterLinkActive, NavigationBarComponent],
   templateUrl: './sidebar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -17,9 +17,4 @@ export class SideBarComponent {
     private readonly _store: Store,
     private readonly _router: Router
   ) {}
-
-  public logout(): void {
-    this._store.dispatch(new LogOut())
-    void this._router.navigate(['/auth/login'])
-  }
 }
