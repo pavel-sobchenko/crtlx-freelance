@@ -14,8 +14,6 @@ import { ValidationErrors } from '@angular/forms'
 export class ValidationMessageComponent {
   @Input() public errors: ValidationErrors
 
-  public error: string
-
   constructor(
     @Inject(ERRORS)
     public readonly errorMessages: Record<string, string>

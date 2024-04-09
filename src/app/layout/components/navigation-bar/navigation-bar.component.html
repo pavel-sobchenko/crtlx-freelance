@@ -1,26 +1,16 @@
 <div class="feature-items">
-    <ul
-            class="space-y-2 font-medium border-b border-gray-200 dark:border-gray-700"
-    >
-        <li>
-            <a
-                    class="flex items-center p-2 text-gray-500 rounded dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group no-underline"
-                    routerLink="/clients"
-                    routerLinkActive="bg-blue-200"
-            >
-                <i class="fa fa-users"></i>
-                <span class="ms-3">Clients</span>
-            </a>
-        </li>
-        <li>
-            <a
-                    class="flex items-center p-2 text-gray-500 rounded dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group no-underline"
-                    routerLink="/invoices"
-                    routerLinkActive="bg-blue-200"
-            >
-                <i class="fa fa-file-text"></i>
-                <span class="ms-3">Invoices</span>
-            </a>
-        </li>
-    </ul>
+  <ul
+    class="space-y-2 font-medium border-b border-gray-200 dark:border-gray-700"
+  >
+    <li *ngFor="let item of navigationBarItems">
+      <a
+        class="flex items-center p-2 text-gray-500 rounded dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group no-underline"
+        routerLinkActive="bg-blue-200"
+        [routerLink]="item.route"
+      >
+        <i class="fa" [ngClass]="item.icon"></i>
+        <span class="ms-3">{{ item.title }}</span>
+      </a>
+    </li>
+  </ul>
 </div>
