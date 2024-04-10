@@ -2,17 +2,5 @@
   class="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto dark:bg-gray-800"
 >
   <navigation-bar />
-  <div class="settings">
-    <ul class="pt-4 mt-4 space-y-2 font-medium">
-      <li>
-        <a
-          class="flex items-center p-2 text-gray-500 rounded dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group no-underline"
-          routerLink="/settings"
-        >
-          <i class="fa fa-cog"></i>
-          <span class="ms-3">Settings</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+  <navigation-item class="list-none" [item]="sideBarSettingsItem" />
 </div>

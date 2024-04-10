@@ -20,3 +20,15 @@ export const SIDEBAR_ITEMS = new InjectionToken<SideBarItem[]>(
     factory: () => sidebarItems
   }
 )
+
+export const sideBarSettings: SideBarItem = {
+  title: 'Settings',
+  route: '/settings',
+  icon: 'fa fa-cog'
+}
+export const SIDEBAR_SETTINGS = new InjectionToken<SideBarItem>(
+  'SIDEBAR_SETTINGS',
+  {
+    factory: () => sideBarSettings
+  }
+)

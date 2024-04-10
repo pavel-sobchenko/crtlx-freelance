@@ -1,16 +1,3 @@
-<div class="feature-items">
-  <ul
-    class="space-y-2 font-medium border-b border-gray-200 dark:border-gray-700"
-  >
-    <li *ngFor="let item of navigationBarItems">
-      <a
-        class="flex items-center p-2 text-gray-500 rounded dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group no-underline"
-        routerLinkActive="bg-blue-200"
-        [routerLink]="item.route"
-      >
-        <i class="fa" [ngClass]="item.icon"></i>
-        <span class="ms-3">{{ item.title }}</span>
-      </a>
-    </li>
-  </ul>
-</div>
+<ul class="space-y-2 font-medium border-b border-gray-200 dark:border-gray-700">
+  <navigation-item *ngFor="let item of navigationBarItems" [item]="item" />
+</ul>
