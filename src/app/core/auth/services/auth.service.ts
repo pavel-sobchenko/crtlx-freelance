@@ -17,6 +17,12 @@ export class AuthService {
     })
   }
 
+  public refreshToken(token: string): Observable<Tokens> {
+    return this._http.get<Tokens>(`/api/auth/token/new`, {
+      params: new HttpParams({ fromObject: { refreshToken: token } })
+    })
+  }
+
   public register(credentials: Credentials): Observable<number> {
     return this._http.post<number>('/api/auth/sign-up', credentials)
   }
@@ -25,5 +31,9 @@ export class AuthService {
     return this._http.post(`/api/auth/sign-up/validate`, {
       email
     })
+  }
+
+  public getProfile(): Observable<any> {
+    return this._http.get<any>('/api/me')
   }
 }
