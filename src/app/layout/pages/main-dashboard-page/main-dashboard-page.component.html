@@ -1,5 +1,5 @@
 <div class="flex h-screen bg-gray-50">
-  <div class="flex w-1/5 flex-col bg-white p-4">
+  <div class="flex grow-0 flex-col bg-white p-4">
     <div class="logo m-2">
       <logo
         title="Freenance"
@@ -12,9 +12,12 @@
     </div>
   </div>
 
-  <div
-    class="w-4/5 m-4 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700"
-  >
-    <router-outlet />
+  <div class="flex flex-col grow">
+    <header-info />
+    <div
+      class="grow m-4 p-4 mt-0 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700"
+    >
+      <router-outlet />
+    </div>
   </div>
 </div>
