@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store'
 import { Router } from '@angular/router'
 import { AvatarComponent } from '@shared/components/avatar/avatar.component'
 import { toSignal } from '@angular/core/rxjs-interop'
+import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
 
 @Component({
   selector: 'header-info',
@@ -14,17 +15,18 @@ import { toSignal } from '@angular/core/rxjs-interop'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  _store = inject(Store)
-  _router = inject(Router)
-  user$ = this._store.select(state => state.auth.user)
-  userSignal = toSignal(this.user$)
+  public _store = inject(Store)
+  public user$ = this._store.select(AuthStateSelectors.user)
+  public userSignal = toSignal(this.user$)
 
-  logout() {
+  private readonly _router = inject(Router)
+
+  public logout(): void {
     this._store.dispatch(new LogOut())
-    this._router.navigate(['auth/login'])
+    void this._router.navigate(['auth/login'])
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (!this.userSignal()) {
       this._store.dispatch(new GetUserInfo())
     }
