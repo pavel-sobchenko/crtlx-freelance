@@ -1,5 +1,6 @@
 import { Route } from '@angular/router'
 import { MainDashboardPageComponent } from '../layout/pages/main-dashboard-page/main-dashboard-page.component'
+import { PageNotFoundComponent } from '../views/pages/page-not-found/page-not-found.component'
 
 export const projectFeaturesModule: Route[] = [
   {
@@ -31,6 +32,10 @@ export const projectFeaturesModule: Route[] = [
           import('./settings/pages/settings-page/settings-page.component').then(
             m => m.SettingsPageComponent
           )
+      },
+      {
+        path: '**',
+        component: PageNotFoundComponent
       }
     ]
   }
