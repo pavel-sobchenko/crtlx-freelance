@@ -1,1 +1,8 @@
-<p>settings works!</p>
+<div class="pl-16 pt-4">
+  <h1>Settings</h1>
+  <settings-form
+    *ngIf="user$ | async as user"
+    [user]="user"
+    (submitForm)="saveUserSettings($event)"
+  />
+</div>

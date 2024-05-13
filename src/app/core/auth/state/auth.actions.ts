@@ -32,3 +32,9 @@ export class Register {
 export class GetUserInfo {
   public static readonly type = '[Auth] Get User Info'
 }
+
+export class UpdateUserInfo {
+  public static readonly type = '[Auth] Update User Info'
+
+  constructor(public readonly user: FormData) {}
+}

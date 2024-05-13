@@ -4,7 +4,7 @@ import { AuthService } from '@core/auth/services/auth.service'
 import { finalize, Observable, tap } from 'rxjs'
 import { Tokens } from '@core/auth/types/tokens'
 import { TokensStorageService } from '../services/tokens-storage.service'
-import { GetUserInfo, Login, LogOut, Register, SetIsLoading, SetTokens } from './auth.actions'
+import { GetUserInfo, Login, LogOut, Register, SetIsLoading, SetTokens, UpdateUserInfo } from './auth.actions'
 import { Router } from '@angular/router'
 import { User } from '@core/auth/types/user'
 
@@ -86,5 +86,15 @@ export class AuthStateService {
     return this._authService
       .getUserInfo()
       .pipe(tap(user => patchState({ user })))
+  }
+
+  @Action(UpdateUserInfo)
+  public updateUserInfo(
+    { dispatch }: StateContext<AuthState>,
+    { user }: UpdateUserInfo
+  ): Observable<User> {
+    return this._authService
+      .updateUserInfo(user)
+      .pipe(finalize(() => dispatch(new GetUserInfo())))
   }
 }
