@@ -9,6 +9,7 @@ import { SideBarComponent } from '../../containers/sidebar/sidebar.component'
   standalone: true,
   imports: [CommonModule, RouterOutlet, LogoComponent, SideBarComponent],
   templateUrl: './main-dashboard-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'flex h-screen bg-gray-50' }
 })
 export class MainDashboardPageComponent {}

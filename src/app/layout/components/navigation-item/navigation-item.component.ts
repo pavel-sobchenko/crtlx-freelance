@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { CommonModule, NgClass } from '@angular/common'
-import { SideBarItem } from '../../types/side-bar-item'
+import { MenuItem } from '../../types/menu-item'
 import { RouterLink, RouterLinkWithHref } from '@angular/router'
 
 @Component({
@@ -11,5 +11,5 @@ import { RouterLink, RouterLinkWithHref } from '@angular/router'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationItemComponent {
-  @Input() public item: SideBarItem
+  @Input() public item: MenuItem
 }

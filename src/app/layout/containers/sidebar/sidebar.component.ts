@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router'
 import { LogoComponent } from '@shared/components/logo/logo.component'
 import { Store } from '@ngxs/store'
-import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component'
-import { SIDEBAR_SETTINGS } from '../../constants/sidebar-items'
-import { SideBarItem } from '../../types/side-bar-item'
+import { NavigationMenuComponent } from '../../components/navigation-menu/navigation-menu.component'
+import { MenuItem } from '../../types/menu-item'
 import { NavigationItemComponent } from '../../components/navigation-item/navigation-item.component'
 
 @Component({
@@ -16,17 +15,23 @@ import { NavigationItemComponent } from '../../components/navigation-item/naviga
     LogoComponent,
     RouterLinkWithHref,
     RouterLinkActive,
-    NavigationBarComponent,
+    NavigationMenuComponent,
     NavigationItemComponent
   ],
   templateUrl: './sidebar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideBarComponent {
+  public navigationMenu: MenuItem[] = [
+    {
+      title: 'Settings',
+      route: '/settings',
+      icon: 'fa fa-cog'
+    }
+  ]
+
   constructor(
     private readonly _store: Store,
-    private readonly _router: Router,
-    @Inject(SIDEBAR_SETTINGS)
-    public readonly sideBarSettingsItem: SideBarItem
+    private readonly _router: Router
   ) {}
 }
