@@ -1,10 +1,4 @@
-<ul
-  class="space-y-2 font-medium border-gray-200 dark:border-gray-700"
-  [ngClass]="{
-    'border-b': borderPosition === 'bottom',
-    'border-t': borderPosition === 'top'
-  }"
->
+<ul>
   <li *ngFor="let item of items">
     <navigation-item [item]="item" />
   </li>
