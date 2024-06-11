@@ -4,12 +4,12 @@ import { MenuItem } from '../../types/menu-item'
 import { RouterLink, RouterLinkActive } from '@angular/router'
 
 @Component({
-  selector: 'navigation-item',
+  selector: 'navigation-menu-item',
   standalone: true,
   imports: [NgClass, RouterLink, RouterLinkActive],
-  templateUrl: './navigation-item.component.html',
+  templateUrl: './navigation-menu-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationItemComponent {
+export class NavigationMenuItemComponent {
   @Input() public item: MenuItem
 }
