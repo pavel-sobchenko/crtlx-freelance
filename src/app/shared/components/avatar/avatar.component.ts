@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { NgIf } from '@angular/common'
 import { User } from '@core/auth/types/user'
 
 @Component({
   selector: 'avatar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgIf],
   templateUrl: './avatar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarComponent {
-  @Input() user: User
+  @Input() public user: User
 }

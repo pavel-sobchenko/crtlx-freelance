@@ -1,8 +1,6 @@
 <ng-container *ngIf="user">
   <div
     class="text-gray-500 mr-4 cursor-pointer"
-    id="avatarButton"
-    type="button"
     data-dropdown-toggle="userDropdown"
     data-dropdown-placement="bottom-start"
   >
@@ -12,17 +10,17 @@
       [src]="user.avatar"
       alt="User avatar"
     />
+    <ng-template #noAvatar>
+      <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+    </ng-template>
   </div>
-  <ng-template #noAvatar>
-    <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-  </ng-template>
 
   <div
     id="userDropdown"
-    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+    class="z-10 hidden bg-white rounded-lg dark:bg-gray-700"
   >
-    <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-      <div>{{ user?.name }}</div>
-    </div>
+    <p class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+      {{ user?.name }}
+    </p>
   </div>
 </ng-container>
