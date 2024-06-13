@@ -28,7 +28,7 @@ export class AuthService {
     })
   }
 
-  public getUserInfo(): Observable<User> {
+  public getUserProfile(): Observable<User> {
     return this._http.get<User>('/api/me')
   }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { GetUserInfo, LogOut } from '@core/auth/state/auth.actions'
+import { GetUserProfile, LogOut } from '@core/auth/state/auth.actions'
 import { Store } from '@ngxs/store'
 import { Router } from '@angular/router'
 import { AvatarComponent } from '@shared/components/avatar/avatar.component'
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
   public ngOnInit(): void {
     if (!this.userSignal()) {
-      this._store.dispatch(new GetUserInfo())
+      this._store.dispatch(new GetUserProfile())
     }
   }
 }

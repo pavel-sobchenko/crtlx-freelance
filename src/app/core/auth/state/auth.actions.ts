@@ -29,6 +29,6 @@ export class Register {
   constructor(public readonly credentials: Credentials) {}
 }
 
-export class GetUserInfo {
-  public static readonly type = '[Auth] Get User Info'
+export class GetUserProfile {
+  public static readonly type = '[Auth] Get User Profile'
 }
