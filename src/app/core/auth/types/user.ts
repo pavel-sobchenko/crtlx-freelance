@@ -1,15 +1,9 @@
+import { Address } from '@core/shared/types/address'
+
 export type User = {
   id: string
   avatar: string
   name: string
-  createdAt: Date
-  updatedAt: Date
+  email: string
   address: Address
-}
-
-type Address = {
-  street: string
-  city: string
-  postCode: string
-  country: string
 }

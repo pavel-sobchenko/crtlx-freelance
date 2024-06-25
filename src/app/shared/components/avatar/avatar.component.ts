@@ -1,19 +1,16 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input } from '@angular/core'
-import { NgIf } from '@angular/common'
-import { User } from '@core/auth/types/user'
-import { initFlowbite } from 'flowbite'
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { NgClass, NgIf } from '@angular/common'
 
 @Component({
   selector: 'avatar',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgClass],
   templateUrl: './avatar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AvatarComponent implements AfterViewInit {
-  @Input() public user: User
-
-  public ngAfterViewInit(): void {
-    initFlowbite()
-  }
+export class AvatarComponent {
+  @Input() public url: string
+  @Input() public shape: 'round' | 'square' = 'round'
+  @Input() public size: 'sm' | 'md' | 'lg' = 'sm'
+  @Input() public alt = 'User avatar'
 }

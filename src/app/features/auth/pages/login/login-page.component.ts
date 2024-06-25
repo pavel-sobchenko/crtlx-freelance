@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Store } from '@ngxs/store'
-import { GetUserProfile, Login } from 'src/app/core/auth/state/auth.actions'
+import { Login } from 'src/app/core/auth/state/auth.actions'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
 import { Router } from '@angular/router'
 import { firstValueFrom } from 'rxjs'
@@ -33,8 +33,6 @@ export class LoginPageComponent {
     )
 
     if (!error) {
-      this._store.dispatch(new GetUserProfile())
-
       return void this._router.navigate(['/'])
     }
 

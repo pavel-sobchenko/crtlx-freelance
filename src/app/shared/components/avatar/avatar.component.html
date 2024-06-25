@@ -1,26 +1,16 @@
-<ng-container *ngIf="user">
-  <div
-    class="text-gray-500 mr-4 cursor-pointer"
-    data-dropdown-toggle="userDropdown"
-    data-dropdown-placement="bottom-start"
-  >
-    <img
-      *ngIf="user?.avatar; else noAvatar"
-      class="w-10 h-10 rounded-full"
-      [src]="user.avatar"
-      alt="User avatar"
-    />
-    <ng-template #noAvatar>
-      <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-    </ng-template>
-  </div>
-
-  <div
-    id="userDropdown"
-    class="z-10 hidden bg-white rounded-lg dark:bg-gray-700"
-  >
-    <p class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-      {{ user?.name }}
-    </p>
-  </div>
-</ng-container>
+<img
+  *ngIf="url; else noAvatar"
+  class="w-10 h-10"
+  [ngClass]="{
+    'rounded-full': shape === 'round',
+    rounded: shape === 'square',
+    'w-10 h-10': size === 'sm',
+    'w-20 h-20': size === 'md',
+    'w-40 h-40': size === 'lg'
+  }"
+  [src]="url"
+  [alt]="alt"
+/>
+<ng-template #noAvatar>
+  <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+</ng-template>
