@@ -1,4 +1,4 @@
-import { Address } from '@core/shared/types/address'
+import { Address } from '@core/types/address'
 
 export type User = {
   id: string

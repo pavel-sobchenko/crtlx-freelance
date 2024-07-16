@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
 import { LoginCredentials } from '@core/auth/types/credentials'
 import { LogoComponent } from '@shared/components/logo/logo.component'
-import { ErrorResponse } from '@core/shared/types/error-response'
+import { ErrorResponse } from '@core/types/error-response'
 
 @Component({
   selector: 'login',

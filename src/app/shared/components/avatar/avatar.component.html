@@ -6,11 +6,19 @@
     rounded: shape === 'square',
     'w-10 h-10': size === 'sm',
     'w-20 h-20': size === 'md',
-    'w-40 h-40': size === 'lg'
+    'w-30 h-30': size === 'lg'
   }"
   [src]="url"
   [alt]="alt"
 />
 <ng-template #noAvatar>
-  <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+  <i
+    class="fa fa-user-circle-o"
+    aria-hidden="true"
+    [ngClass]="{
+      'fa-2x': size === 'sm',
+      'fa-3x': size === 'md',
+      'fa-5x': size === 'lg'
+    }"
+  ></i>
 </ng-template>

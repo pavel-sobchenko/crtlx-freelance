@@ -16,15 +16,14 @@ import { toSignal } from '@angular/core/rxjs-interop'
   host: { class: 'flex h-screen bg-gray-50' }
 })
 export class MainDashboardPageComponent {
-  private readonly _isAuthenticatedSignal = toSignal(
+  private readonly _isAuthenticated = toSignal(
     this._store.select(AuthStateSelectors.isAuthenticated)
   )
 
   constructor(private readonly _store: Store) {
     effect(() => {
-      if (this._isAuthenticatedSignal()) {
-        this._store.dispatch(new GetUserProfile())
-      }
+      if (!this._isAuthenticated()) return
+      this._store.dispatch(new GetUserProfile())
     })
   }
 }
