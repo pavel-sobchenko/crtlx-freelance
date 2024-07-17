@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { Tokens } from '../types/tokens'
 import { Credentials, LoginCredentials } from '../types/credentials'
 import { ValidationErrors } from '@angular/forms'
+import { User } from '@core/auth/types/user'
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class AuthService {
     return this._http.post(`/api/auth/sign-up/validate`, {
       email
     })
+  }
+
+  public getUserProfile(): Observable<User> {
+    return this._http.get<User>('/api/me')
   }
 }

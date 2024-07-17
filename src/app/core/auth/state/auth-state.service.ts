@@ -4,13 +4,15 @@ import { AuthService } from '@core/auth/services/auth.service'
 import { finalize, Observable, tap } from 'rxjs'
 import { Tokens } from '@core/auth/types/tokens'
 import { TokensStorageService } from '../services/tokens-storage.service'
-import { Login, LogOut, Register, SetIsLoading, SetTokens } from './auth.actions'
+import { GetUserProfile, Login, LogOut, Register, SetIsLoading, SetTokens } from './auth.actions'
 import { Router } from '@angular/router'
+import { User } from '@core/auth/types/user'
 
 export interface AuthState {
   tokens?: Tokens
   isAuthenticated?: boolean
   loading?: boolean
+  user?: User
 }
 
 const defaultState: AuthState = {}
@@ -75,5 +77,14 @@ export class AuthStateService {
     return this._authService
       .register(credentials)
       .pipe(finalize(() => dispatch(new SetIsLoading(false))))
+  }
+
+  @Action(GetUserProfile)
+  public getUserProfile({
+    patchState
+  }: StateContext<AuthState>): Observable<User> {
+    return this._authService
+      .getUserProfile()
+      .pipe(tap(user => patchState({ user })))
   }
 }

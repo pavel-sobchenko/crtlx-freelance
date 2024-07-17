@@ -5,7 +5,7 @@
       Email
     </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-300 bg-gray-50 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       formControlName="email"
       id="email"
       placeholder="Email"
@@ -21,7 +21,7 @@
       Password
     </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-300 bg-gray-50 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       formControlName="password"
       id="password"
       placeholder="Password"
@@ -33,14 +33,17 @@
     />
   </div>
   <div class="flex justify-between align-baseline my-1">
-    <div class="flex items-baseline">
+    <div class="flex items-center mb-4">
       <input
-        class="mr-2 leading-tight"
-        formControlName="remember"
         id="remember"
         type="checkbox"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        formControlName="remember"
       />
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="remember">
+      <label
+        for="remember"
+        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      >
         Remember me
       </label>
     </div>
