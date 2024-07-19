@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
-import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'logo',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './logo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
