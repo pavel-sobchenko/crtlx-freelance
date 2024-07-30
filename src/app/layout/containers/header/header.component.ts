@@ -25,6 +25,5 @@ export class HeaderComponent {
 
   public logout(): void {
     this._store.dispatch(new LogOut())
-    void this._router.navigate(['auth/login'])
   }
 }

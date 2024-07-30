@@ -2,6 +2,7 @@ import { inject } from '@angular/core'
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http'
 import { Store } from '@ngxs/store'
 import { AuthStateSelectors } from '../../auth/state/auth.selectors'
+import { addToken } from '@core/http/interceptors/utils'
 
 export const addJwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -12,12 +13,7 @@ export const addJwtInterceptor: HttpInterceptorFn = (
   const isApiUrl = req.url.startsWith('/api')
 
   if (userToken && isApiUrl) {
-    req = req.clone({
-      headers: req.headers.set(
-        'Authorization',
-        `Bearer ${userToken.accessToken}`
-      )
-    })
+    req = addToken(req, userToken.accessToken)
   }
 
   return next(req)
