@@ -16,11 +16,11 @@ import { toSignal } from '@angular/core/rxjs-interop'
   host: { class: 'flex h-screen bg-gray-50' }
 })
 export class MainDashboardPageComponent {
-  private readonly _isAuthenticated = toSignal(
+  private readonly _authenticated = toSignal(
     this._store.select(AuthStateSelectors.isAuthenticated)
   )
 
-  private readonly _isLoggedOut = toSignal(
+  private readonly _loggedOut = toSignal(
     this._actions$.pipe(ofActionDispatched(LogOut))
   )
 
@@ -30,12 +30,12 @@ export class MainDashboardPageComponent {
     private readonly _router: Router
   ) {
     effect(() => {
-      if (!this._isAuthenticated()) return
+      if (!this._authenticated()) return
       this._store.dispatch(new GetUserProfile())
     })
 
     effect(() => {
-      this._isLoggedOut()
+      this._loggedOut()
       void this._router.navigate(['auth/login'])
     })
   }

@@ -25,11 +25,11 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
         return throwError(() => error)
       }
 
-      return handle401Error(req, next)
+      return handleError(req, next)
     })
   )
 
-  function handle401Error(
+  function handleError(
     request: HttpRequest<unknown>,
     nextFn: HttpHandlerFn
   ): Observable<HttpEvent<unknown>> {
