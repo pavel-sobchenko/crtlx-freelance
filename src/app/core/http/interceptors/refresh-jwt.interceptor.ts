@@ -3,11 +3,10 @@ import { catchError, Observable, throwError } from 'rxjs'
 import { inject } from '@angular/core'
 import { AuthService } from '@core/auth/services/auth.service'
 import { TokensStorageService } from '@core/auth/services/tokens-storage.service'
-import { switchMap } from 'rxjs/operators'
 import { Store } from '@ngxs/store'
-import { LogOut, SetTokens } from '@core/auth/state/auth.actions'
 import { ToastrService } from 'ngx-toastr'
-import { ErrorResponse } from '@core/types/error-response'
+import { LogOut, SetTokens } from '@core/auth/state/auth.actions'
+import { switchMap } from 'rxjs/operators'
 import { addToken } from '@core/http/interceptors/utils'
 
 export const refreshJwtInterceptor: HttpInterceptorFn = (
@@ -21,15 +20,19 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status !== 401 || req.url.includes('token/new')) {
-        return throwError(() => error)
+      if (error.status === 401 && !req.url.includes('token/new')) {
+        return handle401Error(req, next)
       }
 
-      return handleError(req, next)
+      if (error.status === 403) {
+        return handle403Error(req, next)
+      }
+
+      return throwError(() => error)
     })
   )
 
-  function handleError(
+  function handle401Error(
     request: HttpRequest<unknown>,
     nextFn: HttpHandlerFn
   ): Observable<HttpEvent<unknown>> {
@@ -49,13 +52,21 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
         return nextFn(req)
       }),
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 403) {
-          store.dispatch(new LogOut())
-        }
-        toastr.error((err.error as ErrorResponse).message, err.statusText)
-
         return throwError(() => err)
       })
     )
+  }
+
+  function handle403Error(
+    request: HttpRequest<unknown>,
+    nextFn: HttpHandlerFn
+  ): Observable<HttpEvent<unknown>> {
+    store.dispatch(new LogOut())
+    toastr.error(
+      'You do not have permission to perform this action.',
+      'Forbidden'
+    )
+
+    return throwError(() => new HttpErrorResponse({ ...request, status: 403 }))
   }
 }
