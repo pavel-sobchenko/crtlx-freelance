@@ -7,7 +7,6 @@ import { Store } from '@ngxs/store'
 import { ToastrService } from 'ngx-toastr'
 import { LogOut, SetTokens } from '@core/auth/state/auth.actions'
 import { switchMap } from 'rxjs/operators'
-import { addToken } from '@core/http/interceptors/utils'
 
 export const refreshJwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -47,7 +46,6 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
     return apiService.refreshToken(token).pipe(
       switchMap(tokens => {
         store.dispatch(new SetTokens(tokens))
-        req = addToken(req, tokens.accessToken)
 
         return nextFn(req)
       }),

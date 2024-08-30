@@ -9,9 +9,9 @@ import { refreshJwtInterceptor } from '@core/http/interceptors/refresh-jwt.inter
   providers: [
     provideHttpClient(
       withInterceptors([
+        refreshJwtInterceptor,
         addJwtInterceptor,
-        addApiBaseUrlInterceptor,
-        refreshJwtInterceptor
+        addApiBaseUrlInterceptor
       ])
     )
   ],
