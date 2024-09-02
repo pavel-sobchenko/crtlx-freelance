@@ -24,7 +24,7 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
       }
 
       if (error.status === 403) {
-        return handle403Error(req, next)
+        handle403Error()
       }
 
       return throwError(() => error)
@@ -48,23 +48,14 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
         store.dispatch(new SetTokens(tokens))
 
         return nextFn(req)
-      }),
-      catchError((err: HttpErrorResponse) => {
-        return throwError(() => err)
       })
     )
   }
 
-  function handle403Error(
-    request: HttpRequest<unknown>,
-    nextFn: HttpHandlerFn
-  ): Observable<HttpEvent<unknown>> {
-    store.dispatch(new LogOut())
+  function handle403Error(): void {
     toastr.error(
       'You do not have permission to perform this action.',
       'Forbidden'
     )
-
-    return throwError(() => new HttpErrorResponse({ ...request, status: 403 }))
   }
 }
