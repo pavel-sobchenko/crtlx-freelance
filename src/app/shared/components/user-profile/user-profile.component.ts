@@ -1,4 +1,9 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Input
+} from '@angular/core'
 import { AvatarComponent } from '@shared/components/avatar/avatar.component'
 import { User } from '@core/auth/types/user'
 import { NgIf } from '@angular/common'
