@@ -7,6 +7,7 @@ import { Store } from '@ngxs/store'
 import { ToastrService } from 'ngx-toastr'
 import { LogOut, SetTokens } from '@core/auth/state/auth.actions'
 import { switchMap } from 'rxjs/operators'
+import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
 
 export const refreshJwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -16,9 +17,18 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
   const tokenStorage = inject(TokensStorageService)
   const store = inject(Store)
   const toastr = inject(ToastrService)
+  const rememberCredentials = store.selectSnapshot(
+    AuthStateSelectors.rememberCredentials
+  )
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
+      if (!rememberCredentials) {
+        hanldeSessionTimeout()
+
+        return throwError(() => error)
+      }
+
       if (error.status === 401 && !req.url.includes('token/new')) {
         return handle401Error(req, next)
       }
@@ -56,6 +66,13 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
     toastr.error(
       'You do not have permission to perform this action.',
       'Forbidden'
+    )
+  }
+
+  function hanldeSessionTimeout(): void {
+    toastr.error(
+      'Your session has expired. Please log in again.',
+      'Session Timeout'
     )
   }
 }

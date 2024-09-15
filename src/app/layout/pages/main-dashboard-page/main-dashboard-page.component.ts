@@ -35,7 +35,7 @@ export class MainDashboardPageComponent {
     })
 
     effect(() => {
-      this._loggedOut()
+      if (!this._loggedOut()) return
       void this._router.navigate(['auth/login'])
     })
   }

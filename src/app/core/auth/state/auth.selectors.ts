@@ -23,4 +23,11 @@ export class AuthStateSelectors {
   public static user({ user }: AuthState): User {
     return user
   }
+
+  @Selector([AuthStateService])
+  public static rememberCredentials({
+    rememberCredentials
+  }: AuthState): boolean {
+    return rememberCredentials
+  }
 }

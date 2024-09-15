@@ -11,6 +11,7 @@ import { User } from '@core/auth/types/user'
 export interface AuthState {
   tokens?: Tokens
   isAuthenticated?: boolean
+  rememberCredentials?: boolean
   loading?: boolean
   user?: User
 }
@@ -31,15 +32,16 @@ export class AuthStateService {
 
   @Action(Login)
   public login(
-    { dispatch }: StateContext<AuthState>,
+    { dispatch, patchState }: StateContext<AuthState>,
     { credentials }: Login
   ): Observable<Tokens> {
     dispatch(new SetIsLoading(true))
 
     return this._authService.getToken(credentials).pipe(
       tap(tokens => {
+        patchState({ rememberCredentials: credentials.remember })
         dispatch(new SetTokens(tokens))
-        credentials.remember && this._tokenStorageService.set(tokens)
+        this._tokenStorageService.set(tokens)
       }),
       finalize(() => dispatch(new SetIsLoading(false)))
     )
