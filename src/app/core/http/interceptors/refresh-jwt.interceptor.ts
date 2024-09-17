@@ -23,13 +23,11 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (!rememberCredentials) {
-        hanldeSessionTimeout()
-
-        return throwError(() => error)
-      }
-
       if (error.status === 401 && !req.url.includes('token/new')) {
+        if (!rememberCredentials) {
+          tokenStorage.set(null);
+        }
+
         return handle401Error(req, next)
       }
 
@@ -66,13 +64,6 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
     toastr.error(
       'You do not have permission to perform this action.',
       'Forbidden'
-    )
-  }
-
-  function hanldeSessionTimeout(): void {
-    toastr.error(
-      'Your session has expired. Please log in again.',
-      'Session Timeout'
     )
   }
 }
