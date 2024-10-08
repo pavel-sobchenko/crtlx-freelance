@@ -7,7 +7,6 @@ import { Store } from '@ngxs/store'
 import { ToastrService } from 'ngx-toastr'
 import { LogOut, SetTokens } from '@core/auth/state/auth.actions'
 import { switchMap } from 'rxjs/operators'
-import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
 
 export const refreshJwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -17,17 +16,10 @@ export const refreshJwtInterceptor: HttpInterceptorFn = (
   const tokenStorage = inject(TokensStorageService)
   const store = inject(Store)
   const toastr = inject(ToastrService)
-  const rememberCredentials = store.selectSnapshot(
-    AuthStateSelectors.rememberCredentials
-  )
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 && !req.url.includes('token/new')) {
-        if (!rememberCredentials) {
-          tokenStorage.set(null);
-        }
-
         return handle401Error(req, next)
       }
 

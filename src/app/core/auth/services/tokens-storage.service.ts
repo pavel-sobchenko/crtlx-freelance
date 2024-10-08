@@ -5,16 +5,23 @@ import { Tokens } from '../types/tokens'
   providedIn: 'root'
 })
 export class TokensStorageService {
-  public set(tokens: Tokens): void {
+  public set(tokens: Tokens, isLocalStorage = false): void {
     if (!tokens) {
+      sessionStorage.removeItem('tokens')
+
       return localStorage.removeItem('tokens')
     }
 
-    localStorage.setItem('tokens', JSON.stringify(tokens))
+    if (isLocalStorage) {
+      localStorage.setItem('tokens', JSON.stringify(tokens))
+    } else {
+      sessionStorage.setItem('tokens', JSON.stringify(tokens))
+    }
   }
 
   public get(): Tokens {
-    const tokens = localStorage.getItem('tokens')
+    const tokens =
+      localStorage.getItem('tokens') || sessionStorage.getItem('tokens')
 
     return tokens ? JSON.parse(tokens) : null
   }

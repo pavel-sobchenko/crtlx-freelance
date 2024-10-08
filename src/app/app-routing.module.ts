@@ -2,7 +2,7 @@ import { Routes } from '@angular/router'
 import { authGuard } from '@core/auth/guards/auth.guard'
 import { loginPageGuard } from './features/auth/guards/login-page.guard'
 import { MainDashboardPageComponent } from './layout/pages/main-dashboard-page/main-dashboard-page.component'
-import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './layout/pages/page-not-found/page-not-found.component'
 
 export const routes: Routes = [
   {
