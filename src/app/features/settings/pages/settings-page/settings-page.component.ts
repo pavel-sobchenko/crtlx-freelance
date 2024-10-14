@@ -8,9 +8,9 @@ import { User } from '@core/auth/types/user'
 import { SettingsFormComponent } from '../../components/settings-form/settings-form.component'
 import to from 'await-to-js'
 import { HttpErrorResponse } from '@angular/common/http'
-import { UpdateUserInfo } from '@core/auth/state/auth.actions'
+import { UpdateUserProfile } from '@core/auth/state/auth.actions'
 import { ToastrService } from 'ngx-toastr'
-import { ErrorResponse } from '@core/shared/types/error-response'
+import { ErrorResponse } from "@core/types/error-response";
 
 @Component({
   selector: 'settings',
@@ -20,14 +20,15 @@ import { ErrorResponse } from '@core/shared/types/error-response'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent {
-  private readonly _store = inject(Store)
-  private readonly _toastr = inject(ToastrService)
   @Select(AuthStateSelectors.user)
   public user$!: Observable<User>
 
+  private readonly _store = inject(Store)
+  private readonly _toastr = inject(ToastrService)
+
   public async saveUserSettings(userData: FormData): Promise<void> {
     const [error] = await to<unknown, HttpErrorResponse>(
-      firstValueFrom(this._store.dispatch(new UpdateUserInfo(userData)))
+      firstValueFrom(this._store.dispatch(new UpdateUserProfile(userData)))
     )
 
     if (error) {
