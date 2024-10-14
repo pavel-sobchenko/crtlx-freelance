@@ -1,6 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output
+} from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms'
 import { Credentials } from '@core/auth/types/credentials'
 import { uniqueEmailValidator } from '@core/auth/validators/unique-email-validator'
 import { AuthService } from '@core/auth/services/auth.service'

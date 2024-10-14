@@ -1,6 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output
+} from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms'
 import { Router, RouterLinkWithHref } from '@angular/router'
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component'
 import { LoginCredentials } from '@core/auth/types/credentials'

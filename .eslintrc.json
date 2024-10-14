@@ -272,7 +272,6 @@
           "error",
           { "prefixes": ["on", "is", "has", "had", "was", "been"] }
         ],
-
         // Sonar
         "sonarjs/no-duplicate-string": "off"
       },
@@ -314,6 +313,12 @@
           { "maxComplexity": 3 }
         ],
         "@angular-eslint/template/no-inline-styles": "off"
+      }
+    },
+    {
+      "files": ["index.html"],
+      "rules": {
+        "@angular-eslint/template/prefer-self-closing-tags": "off"
       }
     }
   ]

@@ -1,15 +1,11 @@
+import { Address } from '@core/types/address'
+
 export type User = {
-  id?: string
-  avatar?: string
-  name?: string
-  email?: string
-  createdAt?: Date
-  updatedAt?: Date
-  address?: Address
-}
-export type Address = {
-  street?: string
-  city?: string
-  postCode?: string
-  country?: string
+  id: string
+  avatar: string
+  name: string
+  email: string
+  createdAt: string
+  updatedAt: string
+  address: Address
 }

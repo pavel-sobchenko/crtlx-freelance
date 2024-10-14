@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router'
 import { authGuard } from '@core/auth/guards/auth.guard'
 import { loginPageGuard } from './features/auth/guards/login-page.guard'
+import { MainDashboardPageComponent } from './layout/pages/main-dashboard-page/main-dashboard-page.component'
+import { PageNotFoundComponent } from './layout/pages/page-not-found/page-not-found.component'
 
 export const routes: Routes = [
   {
@@ -11,10 +13,23 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () =>
-      import('./features/project-features.module').then(
-        m => m.projectFeaturesModule
-      ),
+    component: MainDashboardPageComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/settings',
+        pathMatch: 'full'
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./features/settings/settings.route').then(m => m.routes)
+      },
+      {
+        path: '**',
+        component: PageNotFoundComponent
+      }
+    ],
     canActivate: [authGuard]
   }
 ]

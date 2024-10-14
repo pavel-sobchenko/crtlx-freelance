@@ -1,0 +1,13 @@
+<div
+  class="text-gray-500 mr-4 cursor-pointer"
+  data-dropdown-toggle="userDropdown"
+  data-dropdown-placement="bottom-start"
+>
+  <avatar [url]="user?.avatar" />
+</div>
+
+<div id="userDropdown" class="z-10 hidden bg-white rounded-lg dark:bg-gray-700">
+  <p class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+    {{ user?.name }}
+  </p>
+</div>

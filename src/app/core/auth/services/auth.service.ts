@@ -19,6 +19,12 @@ export class AuthService {
     })
   }
 
+  public refreshToken(token: string): Observable<Tokens> {
+    return this._http.get<Tokens>(`/api/auth/token/new`, {
+      params: new HttpParams({ fromObject: { refreshToken: token } })
+    })
+  }
+
   public register(credentials: Credentials): Observable<number> {
     return this._http.post<number>('/api/auth/sign-up', credentials)
   }
@@ -29,15 +35,15 @@ export class AuthService {
     })
   }
 
-  public getUserInfo(): Observable<User> {
+  public getUserProfile(): Observable<User> {
     return this._http.get<User>('/api/me').pipe(
-      map(data => {
-        const userResp = data
+        map(data => {
+          const userResp = data
 
-        userResp.avatar = environment.apiUrl + userResp.avatar
+          userResp.avatar = environment.apiUrl + userResp.avatar
 
-        return userResp
-      })
+          return userResp
+        })
     )
   }
 

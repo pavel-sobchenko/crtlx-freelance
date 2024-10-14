@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Store } from '@ngxs/store'
-import { GetUserInfo, Login } from 'src/app/core/auth/state/auth.actions'
+import { Login } from 'src/app/core/auth/state/auth.actions'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
 import { Router } from '@angular/router'
 import { firstValueFrom } from 'rxjs'
@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
 import { LoginCredentials } from '@core/auth/types/credentials'
 import { LogoComponent } from '@shared/components/logo/logo.component'
-import { ErrorResponse } from '@core/shared/types/error-response'
+import { ErrorResponse } from '@core/types/error-response'
 
 @Component({
   selector: 'login',
@@ -33,7 +33,6 @@ export class LoginPageComponent {
     )
 
     if (!error) {
-      this._store.dispatch(new GetUserInfo())
       return void this._router.navigate(['/'])
     }
 
