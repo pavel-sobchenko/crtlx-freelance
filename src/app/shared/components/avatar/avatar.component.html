@@ -1,5 +1,5 @@
+@if (url) {
 <img
-  *ngIf="url; else noAvatar"
   class="w-10 h-10"
   [ngClass]="{
     'rounded-full': shape === 'round',
@@ -11,14 +11,14 @@
   [src]="url"
   [alt]="alt"
 />
-<ng-template #noAvatar>
-  <i
-    class="fa fa-user-circle-o"
-    aria-hidden="true"
-    [ngClass]="{
-      'fa-2x': size === 'sm',
-      'fa-3x': size === 'md',
-      'fa-5x': size === 'lg'
-    }"
-  ></i>
-</ng-template>
+} @else {
+<i
+  class="fa fa-user-circle-o"
+  aria-hidden="true"
+  [ngClass]="{
+    'fa-2x': size === 'sm',
+    'fa-3x': size === 'md',
+    'fa-5x': size === 'lg'
+  }"
+></i>
+}

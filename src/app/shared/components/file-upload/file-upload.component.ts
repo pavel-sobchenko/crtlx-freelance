@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, Input } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 import { DragDropDirective } from '@shared/directives/drag-drop.directive'
+import { NgOptimizedImage } from '@angular/common'
 
 @Component({
   selector: 'file-upload',
   standalone: true,
-  imports: [CommonModule, DragDropDirective],
+  imports: [DragDropDirective, NgOptimizedImage],
   templateUrl: './file-upload.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -18,12 +19,13 @@ import { DragDropDirective } from '@shared/directives/drag-drop.directive'
   ]
 })
 export class FileUploadComponent implements ControlValueAccessor {
+  @Input() public url: string | ArrayBuffer | null = null
   @Input() public accept = ''
   @Input() public dimension: { width: number; height: number }
+
   public onChange: Function
   public onTouched: Function
   public file: File | null = null
-  public url: string | ArrayBuffer | null = null
 
   constructor(
     private readonly _host: ElementRef<HTMLInputElement>,
@@ -36,7 +38,7 @@ export class FileUploadComponent implements ControlValueAccessor {
     this._readFile(event?.item(0))
   }
 
-  public writeValue(value: null): void {
+  public writeValue(): void {
     this._host.nativeElement.value = ''
     this.file = null
   }

@@ -11,10 +11,9 @@
       placeholder="Email"
       type="email"
     />
-    <validation-message
-      *ngIf="form.controls['email'].touched"
-      [errors]="form.controls['email'].errors"
-    />
+    @if (!form.controls['email'].untouched) {
+    <validation-message [errors]="form.controls['email'].errors" />
+    }
   </div>
   <div class="mb-6">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -27,10 +26,9 @@
       placeholder="Password"
       type="password"
     />
-    <validation-message
-      *ngIf="form.controls['password'].touched"
-      [errors]="form.controls['password'].errors"
-    />
+    @if (!form.controls['password'].untouched) {
+    <validation-message [errors]="form.controls['password'].errors" />
+    }
   </div>
   <div class="flex justify-between align-baseline my-1">
     <div class="flex items-center mb-4">

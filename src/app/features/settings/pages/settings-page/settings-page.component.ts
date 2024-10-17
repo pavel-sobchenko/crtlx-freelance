@@ -10,7 +10,7 @@ import to from 'await-to-js'
 import { HttpErrorResponse } from '@angular/common/http'
 import { UpdateUserProfile } from '@core/auth/state/auth.actions'
 import { ToastrService } from 'ngx-toastr'
-import { ErrorResponse } from "@core/types/error-response";
+import { ErrorResponse } from '@core/types/error-response'
 
 @Component({
   selector: 'settings',

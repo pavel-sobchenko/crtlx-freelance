@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
-import { NgClass, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 
 @Component({
   selector: 'avatar',
   standalone: true,
-  imports: [NgIf, NgClass],
+  imports: [NgClass],
   templateUrl: './avatar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

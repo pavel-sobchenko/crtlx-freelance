@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, output } from '@angular/core'
+
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component'
 import { User } from '@core/auth/types/user'
@@ -12,7 +12,6 @@ import { dimensionFileValidator } from '@shared/validators/dimensionFileValidato
   selector: 'settings-form',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     ValidationMessageComponent,
     FileUploadComponent
@@ -21,19 +20,15 @@ import { dimensionFileValidator } from '@shared/validators/dimensionFileValidato
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsFormComponent implements OnInit {
-  @Input() public user: User
-  @Output() public readonly submitForm = new EventEmitter<FormData>()
+  public user = input<User>()
+  public readonly submitForm = output<FormData>()
   public countries = inject(COUNTRIES)
-  public dimension = { width: 200, height: 200 }
+  public dimension = { width: 800, height: 600 }
 
   public form = this._fb.group({
     avatar: [
       null,
-      [
-        Validators.required,
-        requiredFileTypeValidator(['jpg', 'jpeg'])
-        // dimensionFileValidator(this.dimension)
-      ],
+      [Validators.required, requiredFileTypeValidator(['jpg', 'jpeg'])],
       dimensionFileValidator(this.dimension),
       { updateOn: 'change' }
     ],
@@ -48,7 +43,7 @@ export class SettingsFormComponent implements OnInit {
   constructor(private readonly _fb: NonNullableFormBuilder) {}
 
   public ngOnInit(): void {
-    const { name, email, address } = this.user
+    const { name, email, address } = this.user()
     const {
       street = '',
       city = '',

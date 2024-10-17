@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 import { RegisterFormComponent } from '../../components/register-form/register-form.component'
 import { Store } from '@ngxs/store'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -16,12 +16,7 @@ import { ErrorResponse } from '@core/types/error-response'
 @Component({
   selector: 'registration',
   standalone: true,
-  imports: [
-    CommonModule,
-    RegisterFormComponent,
-    SpinnerComponent,
-    LogoComponent
-  ],
+  imports: [RegisterFormComponent, SpinnerComponent, LogoComponent],
   templateUrl: './registration-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,5 +1,7 @@
 <ul>
-  <li *ngFor="let item of items">
+  @for (item of items; track item) {
+  <li>
     <navigation-menu-item [item]="item" />
   </li>
+  }
 </ul>

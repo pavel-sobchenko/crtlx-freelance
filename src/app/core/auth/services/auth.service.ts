@@ -37,13 +37,12 @@ export class AuthService {
 
   public getUserProfile(): Observable<User> {
     return this._http.get<User>('/api/me').pipe(
-        map(data => {
-          const userResp = data
-
-          userResp.avatar = environment.apiUrl + userResp.avatar
-
-          return userResp
-        })
+      map(data => {
+        return {
+          ...data,
+          avatar: environment.apiUrl + data.avatar
+        }
+      })
     )
   }
 
