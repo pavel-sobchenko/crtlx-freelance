@@ -5,5 +5,7 @@ export type User = {
   avatar: string
   name: string
   email: string
+  createdAt: string
+  updatedAt: string
   address: Address
 }

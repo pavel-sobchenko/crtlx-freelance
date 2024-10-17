@@ -1,0 +1,106 @@
+<form class="w-1/2" [formGroup]="form" (ngSubmit)="submit()">
+  <p class="text-blue-600 font-bold mt-4">General</p>
+  <h6 class="font-semibold my-2">Avatar</h6>
+  <file-upload
+    formControlName="avatar"
+    accept=".jpg,.jpeg"
+    [dimension]="dimension"
+    [url]="user().avatar"
+  />
+  @if (!form.controls['avatar'].untouched) {
+  <validation-message [errors]="form.controls['avatar'].errors" />
+  }
+
+  <label class="block font-semibold mb-2 mt-4" for="name">Name</label>
+  <input
+    class="shadow border border-gray-300 bg-gray-50 rounded-lg w-full py-2 px-3 text-gray-700"
+    formControlName="name"
+    id="name"
+    placeholder="Name"
+    type="text"
+  />
+  @if (!form.controls['name'].untouched) {
+  <validation-message [errors]="form.controls['name'].errors" />
+  }
+
+  <label class="block font-semibold mb-2 mt-4" for="email">Email</label>
+  <input
+    class="shadow disabled border border-gray-300 bg-gray-200 rounded-lg w-full py-2 px-3 text-gray-700"
+    formControlName="email"
+    id="email"
+    placeholder="Email"
+    type="email"
+    readonly
+  />
+
+  <p class="text-blue-600 font-bold mt-8">Address</p>
+  <label class="block font-semibold mb-2 mt-2" for="street">
+    Street Address
+  </label>
+  <input
+    class="shadow border border-gray-300 bg-gray-50 rounded-lg w-full py-2 px-3 text-gray-700"
+    formControlName="street"
+    id="street"
+    placeholder="Street Address"
+    type="text"
+  />
+  @if (!form.controls['street'].untouched) {
+  <validation-message [errors]="form.controls['street'].errors" />
+  }
+  <div class="flex w-full">
+    <div class="w-1/3">
+      <label class="block font-semibold mb-2 mt-4" for="city">City</label>
+      <input
+        class="shadow border border-gray-300 w-full bg-gray-50 rounded-lg py-2 px-3 text-gray-700"
+        formControlName="city"
+        id="city"
+        placeholder="City"
+        type="text"
+      />
+      @if (!form.controls['city'].untouched) {
+      <validation-message [errors]="form.controls['city'].errors" />
+      }
+    </div>
+    <div class="mx-4 w-1/3">
+      <label class="block font-semibold mb-2 mt-4" for="postCode">
+        Postal Code
+      </label>
+      <input
+        class="shadow border border-gray-300 w-full bg-gray-50 rounded-lg py-2 px-3 text-gray-700"
+        formControlName="postCode"
+        id="postCode"
+        placeholder="Post Code"
+        type="text"
+      />
+      @if (!form.controls['postCode'].untouched) {
+      <validation-message [errors]="form.controls['postCode'].errors" />
+      }
+    </div>
+    <div class="w-1/3">
+      <label for="countries" class="block font-semibold mb-2 mt-4">
+        Country
+      </label>
+      <select
+        id="countries"
+        formControlName="country"
+        class="shadow border border-gray-300 w-full bg-gray-50 rounded-lg py-2 px-3 text-gray-700"
+      >
+        <option disabled ngValue="">Select Country!</option>
+
+        @for ( country of countries; track country.id ) {
+        <option [ngValue]="country.id">
+          {{ country.name }}
+        </option>
+        }
+      </select>
+      @if (!form.controls['country'].untouched) {
+      <validation-message [errors]="form.controls['country'].errors" />
+      }
+    </div>
+  </div>
+  <input
+    class="bg-blue-500 float-right hover:bg-blue-700 font-bold text-white mt-4 py-2 px-4 rounded w-24 cursor-pointer"
+    type="submit"
+    value="Save"
+  />
+</form>
