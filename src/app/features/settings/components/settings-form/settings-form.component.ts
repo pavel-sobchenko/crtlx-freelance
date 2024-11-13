@@ -4,9 +4,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component'
 import { User } from '@core/auth/types/user'
 import { COUNTRIES } from '../../constants/countries'
-import { FileUploadComponent } from '@shared/components/file-upload/file-upload.component'
-import { requiredFileTypeValidator } from '@shared/validators/requiredFileTypeValidator'
-import { dimensionFileValidator } from '@shared/validators/dimensionFileValidator'
+import { CustomFileUploadComponent } from '@shared/components/custom-file-upload/custom-file-upload.component'
 
 @Component({
   selector: 'settings-form',
@@ -14,60 +12,55 @@ import { dimensionFileValidator } from '@shared/validators/dimensionFileValidato
   imports: [
     ReactiveFormsModule,
     ValidationMessageComponent,
-    FileUploadComponent
+    CustomFileUploadComponent
   ],
   templateUrl: './settings-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsFormComponent implements OnInit {
-  public user = input<User>()
+  public readonly user = input<User>()
   public readonly submitForm = output<FormData>()
-  public countries = inject(COUNTRIES)
-  public dimension = { width: 800, height: 600 }
+  public readonly countries = inject(COUNTRIES)
 
   public form = this._fb.group({
-    avatar: [
-      null,
-      [Validators.required, requiredFileTypeValidator(['jpg', 'jpeg'])],
-      dimensionFileValidator(this.dimension),
-      { updateOn: 'change' }
-    ],
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    street: ['', [Validators.required]],
-    city: ['', [Validators.required]],
-    postCode: ['', [Validators.required]],
-    country: ['', [Validators.required]]
+    address: this._fb.group({
+      street: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      postCode: ['', [Validators.required]],
+      country: ['', [Validators.required]]
+    })
   })
+
+  private _avatar: File
 
   constructor(private readonly _fb: NonNullableFormBuilder) {}
 
   public ngOnInit(): void {
     const { name, email, address } = this.user()
-    const {
-      street = '',
-      city = '',
-      postCode = '',
-      country = ''
-    } = address || {}
 
-    this.form.patchValue({ name, email, street, city, postCode, country })
+    this.form.patchValue({ name, email, address })
   }
 
   public submit(): void {
     this.form.markAllAsTouched()
     if (this.form.invalid) return
 
-    const { name, street, city, postCode, country, avatar } = this.form.value
+    const { name, address } = this.form.value
     const formData = new FormData()
 
-    formData.append('avatar', avatar)
+    formData.append('avatar', this._avatar)
     formData.append('name', name)
-    formData.append('address[street]', street)
-    formData.append('address[city]', city)
-    formData.append('address[postCode]', postCode)
-    formData.append('address[country]', country)
+    formData.append('address[street]', address.street)
+    formData.append('address[city]', address.city)
+    formData.append('address[postCode]', address.postCode)
+    formData.append('address[country]', address.country)
 
     this.submitForm.emit(formData)
+  }
+
+  public uploadFile(target: File): void {
+    this._avatar = target
   }
 }

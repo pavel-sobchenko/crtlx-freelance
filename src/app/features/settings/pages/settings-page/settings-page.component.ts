@@ -21,7 +21,7 @@ import { ErrorResponse } from '@core/types/error-response'
 })
 export class SettingsPageComponent {
   @Select(AuthStateSelectors.user)
-  public user$!: Observable<User>
+  public readonly user$!: Observable<User>
 
   private readonly _store = inject(Store)
   private readonly _toastr = inject(ToastrService)
@@ -31,10 +31,10 @@ export class SettingsPageComponent {
       firstValueFrom(this._store.dispatch(new UpdateUserProfile(userData)))
     )
 
-    if (error) {
-      const loginError = error.error as ErrorResponse
+    if (!error) return
 
-      this._toastr.error(loginError.message, loginError.error)
-    }
+    const loginError = error.error as ErrorResponse
+
+    this._toastr.error(loginError.message, loginError.error)
   }
 }
