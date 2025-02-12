@@ -1,5 +1,5 @@
 @for (error of errors | keyvalue | slice: 0 : 1; track error.key) {
-<small>
-  {{ errorMessages[error.key] || error.value }}
-</small>
+  <small>
+    {{ errorMessages[error.key] || error.value }}
+  </small>
 }

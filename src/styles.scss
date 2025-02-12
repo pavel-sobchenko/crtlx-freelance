@@ -25,11 +25,3 @@
     @apply text-blue-600 underline;
   }
 }
-
-.form-input {
-  @apply shadow border border-gray-300 bg-gray-50 rounded-lg py-2 px-3 text-gray-700 w-full;
-}
-
-.form-input-label {
-  @apply block font-semibold mb-2 mt-4;
-}

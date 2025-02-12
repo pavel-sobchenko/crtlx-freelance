@@ -12,7 +12,7 @@
       type="text"
     />
     @if (!form.controls['name'].untouched) {
-    <validation-message [errors]="form.controls['name'].errors" />
+      <validation-message [errors]="form.controls['name'].errors" />
     }
   </div>
   <div class="mb-2">
@@ -27,7 +27,7 @@
       type="email"
     />
     @if (!form.controls['email'].untouched) {
-    <validation-message [errors]="form.controls['email'].errors" />
+      <validation-message [errors]="form.controls['email'].errors" />
     }
   </div>
   <div class="mb-6 mt-2">
@@ -57,7 +57,7 @@
       </button>
     </div>
     @if (!form.controls['password'].untouched) {
-    <validation-message [errors]="form.controls['password'].errors" />
+      <validation-message [errors]="form.controls['password'].errors" />
     }
   </div>
   <div class="flex flex-col gap-1 items-center justify-between">

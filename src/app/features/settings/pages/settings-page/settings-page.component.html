@@ -1,6 +1,6 @@
 <div class="pl-16 pt-4">
   <h1>Settings</h1>
   @if (user$ | async; as user) {
-  <settings-form [user]="user" (submitForm)="saveUserSettings($event)" />
+    <settings-form [user]="user" (submitForm)="saveUserSettings($event)" />
   }
 </div>

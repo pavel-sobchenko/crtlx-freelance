@@ -2,15 +2,15 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Select, Store } from '@ngxs/store'
-import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
 import { firstValueFrom, Observable } from 'rxjs'
 import { User } from '@core/auth/types/user'
 import { SettingsFormComponent } from '../../components/settings-form/settings-form.component'
 import to from 'await-to-js'
 import { HttpErrorResponse } from '@angular/common/http'
-import { UpdateUserProfile } from '@core/auth/state/auth.actions'
 import { ToastrService } from 'ngx-toastr'
 import { ErrorResponse } from '@core/types/error-response'
+import { ProfileStateSelectors } from '@core/profile/state/profile.selectors'
+import { UpdateUserProfile } from '@core/profile/state/profile.actions'
 
 @Component({
   selector: 'settings',
@@ -20,7 +20,7 @@ import { ErrorResponse } from '@core/types/error-response'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent {
-  @Select(AuthStateSelectors.user)
+  @Select(ProfileStateSelectors.user)
   public readonly user$!: Observable<User>
 
   private readonly _store = inject(Store)
@@ -33,8 +33,8 @@ export class SettingsPageComponent {
 
     if (!error) return
 
-    const loginError = error.error as ErrorResponse
+    const updateError = error.error as ErrorResponse
 
-    this._toastr.error(loginError.message, loginError.error)
+    this._toastr.error(updateError.message, updateError.error)
   }
 }

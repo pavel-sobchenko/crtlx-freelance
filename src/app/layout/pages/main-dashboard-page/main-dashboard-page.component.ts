@@ -4,8 +4,9 @@ import { SideBarComponent } from '../../containers/sidebar/sidebar.component'
 import { HeaderComponent } from '../../containers/header/header.component'
 import { Actions, ofActionDispatched, Store } from '@ngxs/store'
 import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
-import { GetUserProfile, LogOut } from '@core/auth/state/auth.actions'
+import { LogOut } from '@core/auth/state/auth.actions'
 import { toSignal } from '@angular/core/rxjs-interop'
+import { GetUserProfile } from '@core/profile/state/profile.actions'
 
 @Component({
   selector: 'main-dashboard-page',

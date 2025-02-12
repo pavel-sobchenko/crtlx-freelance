@@ -12,7 +12,7 @@
       type="email"
     />
     @if (!form.controls['email'].untouched) {
-    <validation-message [errors]="form.controls['email'].errors" />
+      <validation-message [errors]="form.controls['email'].errors" />
     }
   </div>
   <div class="mb-6">
@@ -27,7 +27,7 @@
       type="password"
     />
     @if (!form.controls['password'].untouched) {
-    <validation-message [errors]="form.controls['password'].errors" />
+      <validation-message [errors]="form.controls['password'].errors" />
     }
   </div>
   <div class="flex justify-between align-baseline my-1">

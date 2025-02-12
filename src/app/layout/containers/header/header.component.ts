@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common'
 import { LogOut } from '@core/auth/state/auth.actions'
 import { Store } from '@ngxs/store'
 import { Router } from '@angular/router'
-import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
 import { UserProfileComponent } from '@shared/components/user-profile/user-profile.component'
+import { ProfileStateSelectors } from '@core/profile/state/profile.selectors'
 
 @Component({
   selector: 'header-info, [header-info]',
@@ -16,7 +16,7 @@ import { UserProfileComponent } from '@shared/components/user-profile/user-profi
   host: { class: 'h-10 flex justify-end m-4 items-center' }
 })
 export class HeaderComponent {
-  public user$ = this._store.select(AuthStateSelectors.user)
+  public user$ = this._store.select(ProfileStateSelectors.user)
 
   constructor(
     private readonly _store: Store,

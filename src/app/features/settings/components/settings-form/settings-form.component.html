@@ -1,28 +1,42 @@
 <form class="w-1/2" [formGroup]="form" (ngSubmit)="submit()">
-  <p class="text-blue-600 font-bold mt-4">General</p>
-  <p class="form-input-label">Avatar</p>
-
-  <custom-file-upload
-    accept=".jpg,.jpeg"
-    [url]="user().avatar"
-    (upload)="uploadFile($event)"
-  />
-
-  <label class="form-input-label" for="name">Name</label>
+  <p class="text-blue-600 font-bold my-4">General</p>
+  <label appFormLabel for="dropzone-file">Avatar</label>
+  <div class="w-full">
+    <label
+      for="dropzone-file"
+      class="flex flex-col items-center justify-center w-32 h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-gray-100"
+    >
+      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+        @if (url) {
+          <img alt="avatar" width="100" height="100" priority [src]="url" />
+        } @else {
+          <i class="fa fa-camera fa-2x text-gray-500"></i>
+        }
+      </div>
+      <input
+        id="dropzone-file"
+        formControlName="avatar"
+        type="file"
+        class="hidden"
+        (change)="onFileSelected($any($event.target).files[0])"
+      />
+    </label>
+  </div>
+  <label appFormLabel for="name">Name</label>
   <input
-    class="form-input"
+    appFormInput
     formControlName="name"
     id="name"
     placeholder="Name"
     type="text"
   />
-  @if (!form.controls['name'].untouched) {
-  <validation-message [errors]="form.controls['name'].errors" />
+  @if (form.controls['name'].touched && form.invalid) {
+    <validation-message [errors]="form.controls['name'].errors" />
   }
 
-  <label class="form-input-label" for="email">Email</label>
+  <label appFormLabel for="email">Email</label>
   <input
-    class="shadow disabled form-input !bg-gray-200"
+    appFormInput
     formControlName="email"
     id="email"
     placeholder="Email"
@@ -30,66 +44,64 @@
     readonly
   />
 
-  <div formGroupName="address">
+  <ng-container formGroupName="address">
     <p class="text-blue-600 font-bold mt-8">Address</p>
-    <label class="form-input-label" for="street">Street Address</label>
+    <label appFormLabel for="street">Street Address</label>
     <input
-      class="form-input"
+      appFormInput
       formControlName="street"
       id="street"
       placeholder="Street Address"
       type="text"
     />
-    @if (!form.get('address.street').untouched) {
-    <validation-message [errors]="form.get('address.street').errors" />
+    @if (form.get('address.street').touched && form.invalid) {
+      <validation-message [errors]="form.get('address.street').errors" />
     }
-    <div class="flex">
-      <div class="w-1/3">
-        <label class="form-input-label" for="city">City</label>
+    <div class="grid grid-cols-3 gap-2">
+      <div>
+        <label appFormLabel for="city">City</label>
         <input
-          class="form-input"
+          appFormInput
           formControlName="city"
           id="city"
           placeholder="City"
           type="text"
         />
         @if (!form.get('address.city').untouched) {
-        <validation-message [errors]="form.get('address.city').errors" />
+          <validation-message [errors]="form.get('address.city').errors" />
         }
       </div>
-      <div class="mx-4 w-1/3">
-        <label class="form-input-label" for="postCode">Postal Code</label>
+      <div>
+        <label appFormLabel for="postCode">Postal Code</label>
         <input
-          class="form-input"
+          appFormInput
           formControlName="postCode"
           id="postCode"
           placeholder="Post Code"
           type="text"
         />
         @if (!form.get('address.postCode').untouched) {
-        <validation-message [errors]="form.get('address.postCode').errors" />
+          <validation-message [errors]="form.get('address.postCode').errors" />
         }
       </div>
-      <div class="w-1/3">
-        <label for="countries" class="form-input-label">Country</label>
-        <select id="countries" formControlName="country" class="form-input">
+      <div>
+        <label for="countries" appFormLabel>Country</label>
+        <select id="countries" formControlName="country" appFormInput>
           <option disabled ngValue="">Select Country!</option>
 
-          @for ( country of countries; track country.id ) {
-          <option [ngValue]="country.id">
-            {{ country.name }}
-          </option>
+          @for (country of countries; track country.id) {
+            <option [ngValue]="country.id">
+              {{ country.name }}
+            </option>
           }
         </select>
         @if (!form.get('address.country').untouched) {
-        <validation-message [errors]="form.get('address.country').errors" />
+          <validation-message [errors]="form.get('address.country').errors" />
         }
       </div>
     </div>
+  </ng-container>
+  <div class="flex mt-2 justify-end">
+    <button appButton type="submit">Save</button>
   </div>
-  <input
-    class="bg-blue-500 float-right hover:bg-blue-700 font-bold text-white mt-4 py-2 px-4 rounded w-24 cursor-pointer"
-    type="submit"
-    value="Save"
-  />
 </form>
