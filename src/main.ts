@@ -10,12 +10,13 @@ import { CoreModule } from '@core/core.module'
 import { HttpModule } from '@core/http/http.module'
 import { provideToastr } from 'ngx-toastr'
 import { provideAnimations } from '@angular/platform-browser/animations'
+import { ProfileStateService } from '@core/profile/state/profile-state.service'
 
 void bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     importProvidersFrom(
-      NgxsModule.forRoot([], {}),
+      NgxsModule.forRoot([ProfileStateService], {}),
       NgxsReduxDevtoolsPluginModule.forRoot(),
       NgxsLoggerPluginModule.forRoot(),
       CoreModule,

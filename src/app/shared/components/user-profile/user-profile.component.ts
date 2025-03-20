@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, Component, input } from '@angular/core'
 import { AvatarComponent } from '@shared/components/avatar/avatar.component'
 import { User } from '@core/auth/types/user'
 
@@ -12,7 +12,7 @@ import { initFlowbite } from 'flowbite'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileComponent implements AfterViewInit {
-  @Input() public user: User
+  public user = input<User>()
 
   public ngAfterViewInit(): void {
     initFlowbite()

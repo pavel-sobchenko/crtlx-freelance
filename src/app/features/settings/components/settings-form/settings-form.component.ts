@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, input, OnInit, output } from '@angular/core'
+import { ChangeDetectionStrategy, Component, effect, inject, input, output } from '@angular/core'
 
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component'
 import { User } from '@core/auth/types/user'
 import { COUNTRIES } from '../../constants/countries'
-import { FormInputDirective } from '@shared/directives/form-input.directive'
-import { FormLabelDirective } from '@shared/directives/form-label.directive'
-import { AppButtonDirective } from '@shared/directives/app-button.directive'
-import { NgOptimizedImage } from '@angular/common'
+import { NgIf, NgOptimizedImage } from '@angular/common'
+import { AppButtonDirective } from '@shared/directives/app-button/app-button.directive'
+import { FormInputDirective } from '@shared/directives/form-input/form-input.directive'
+import { FormLabelDirective } from '@shared/directives/form-label/form-label.directive'
+import { FileUploadComponent } from '@shared/components/file-upload/file-upload.component'
 
 @Component({
   selector: 'settings-form',
@@ -18,19 +19,21 @@ import { NgOptimizedImage } from '@angular/common'
     FormInputDirective,
     FormLabelDirective,
     AppButtonDirective,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FileUploadComponent,
+    NgIf
   ],
   templateUrl: './settings-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsFormComponent implements OnInit {
+export class SettingsFormComponent {
   public readonly user = input<User>()
   public readonly submitForm = output<FormData>()
   public readonly countries = inject(COUNTRIES)
   public url: string | ArrayBuffer = null
 
   public form = this._fb.group({
-    avatar: [null],
+    avatar: new FormControl(),
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     address: this._fb.group({
@@ -41,28 +44,27 @@ export class SettingsFormComponent implements OnInit {
     })
   })
 
-  private _avatar: File
-
   constructor(
-    private readonly _fb: NonNullableFormBuilder,
-    private readonly _cd: ChangeDetectorRef
-  ) {}
+    private readonly _fb: NonNullableFormBuilder
+  ) {
+    effect(() => {
+      if (!this.user()) return
 
-  public ngOnInit(): void {
-    const { name, email, address, avatar } = this.user()
+      const { name, email, address, avatar } = this.user()
 
-    this.form.patchValue({ name, email, address })
-    this.url = avatar
+      this.form.patchValue({ name, email, address })
+      this.url = avatar
+    })
   }
 
   public submit(): void {
     this.form.markAllAsTouched()
     if (this.form.invalid) return
 
-    const { name, address } = this.form.value
+    const { name, address, avatar } = this.form.value
     const formData = new FormData()
 
-    formData.append('avatar', this._avatar)
+    formData.append('avatar', avatar)
     formData.append('name', name)
     formData.append('address[street]', address.street)
     formData.append('address[city]', address.city)
@@ -70,19 +72,5 @@ export class SettingsFormComponent implements OnInit {
     formData.append('address[country]', address.country)
 
     this.submitForm.emit(formData)
-  }
-
-  public onFileSelected(file: File): void {
-    this._avatar = file
-    if (!file) return
-
-    const reader = new FileReader()
-
-    reader.readAsDataURL(file)
-
-    reader.onload = () => {
-      this.url = reader.result
-      this._cd.markForCheck()
-    }
   }
 }

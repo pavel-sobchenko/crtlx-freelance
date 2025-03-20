@@ -1,0 +1,38 @@
+<label appFormLabel for="dropzone-file">{{ label }}</label>
+<div class="w-full flex">
+  <label
+    for="dropzone-file"
+    class="relative flex flex-col items-center justify-center w-32 h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-gray-100"
+  >
+    <div class="flex flex-col items-center justify-center w-full h-full">
+      <ng-container *ngIf="url; else defaultIcon">
+        <img class="w-full h-full" alt="avatar" [src]="url" />
+      </ng-container>
+      <ng-template #defaultIcon>
+        <i class="fa fa-camera fa-2x text-gray-500"></i>
+      </ng-template>
+    </div>
+    <input
+      class="absolute inset-0 opacity-0"
+      id="dropzone-file"
+      type="file"
+      [accept]="allowedExtensions.join(',')"
+      (change)="onFileSelected($any($event.target).files[0])"
+    />
+  </label>
+  <div class="ml-4 flex items-center">
+    <ng-container *ngIf="formControl.value; else uploadText">
+      <p class="mb-2 text-sm text-gray-500">{{ formControl.value.name }}</p>
+    </ng-container>
+    <ng-template #uploadText>
+      <p class="mb-2 text-sm text-gray-500 font-bold">
+        Click to upload or drag and drop
+        <u>{{ allowedExtensions.join(', ') }}</u>
+        format only.
+      </p>
+    </ng-template>
+  </div>
+</div>
+<div *ngIf="formControl?.invalid">
+  <validation-message [errors]="formControl.errors" />
+</div>

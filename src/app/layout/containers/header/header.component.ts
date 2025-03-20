@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store'
 import { Router } from '@angular/router'
 import { UserProfileComponent } from '@shared/components/user-profile/user-profile.component'
 import { ProfileStateSelectors } from '@core/profile/state/profile.selectors'
+import { ClearUserProfile } from '@core/profile/state/profile.actions'
 
 @Component({
   selector: 'header-info, [header-info]',
@@ -25,5 +26,6 @@ export class HeaderComponent {
 
   public logout(): void {
     this._store.dispatch(new LogOut())
+    this._store.dispatch(new ClearUserProfile())
   }
 }

@@ -1,6 +1,4 @@
-@if (user$ | async; as user) {
-  <user-profile [user]="user" />
-}
+<user-profile [user]="user$ | async" />
 <button type="button" (click)="logout()">
   <i class="fa fa-sign-out fa-2x text-gray-500"></i>
 </button>

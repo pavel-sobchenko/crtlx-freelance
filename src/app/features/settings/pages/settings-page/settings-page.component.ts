@@ -17,11 +17,12 @@ import { UpdateUserProfile } from '@core/profile/state/profile.actions'
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SettingsFormComponent],
   templateUrl: './settings-page.component.html',
+  host: { class: 'flex flex-col px-8 py-4' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent {
   @Select(ProfileStateSelectors.user)
-  public readonly user$!: Observable<User>
+  public readonly user$: Observable<User>
 
   private readonly _store = inject(Store)
   private readonly _toastr = inject(ToastrService)

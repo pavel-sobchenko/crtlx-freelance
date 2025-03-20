@@ -7,3 +7,7 @@ export class UpdateUserProfile {
 
   constructor(public readonly user: FormData) {}
 }
+
+export class ClearUserProfile {
+  public static readonly type = '[Auth] Clear Profile'
+}

@@ -10,18 +10,18 @@ import { environment } from '../../../../environments/environment'
 export class ProfileService {
   constructor(private readonly _http: HttpClient) {}
 
-  public getUserProfile(): Observable<User> {
+  public get(): Observable<User> {
     return this._http.get<User>('/api/me').pipe(
       map(data => {
         return {
           ...data,
-          avatar: environment.apiUrl + data.avatar
+          avatar: data.avatar ? environment.apiUrl + data.avatar : null
         }
       })
     )
   }
 
-  public updateUserInfo(user: FormData): Observable<User> {
+  public update(user: FormData): Observable<User> {
     return this._http.patch<User>('/api/settings', user)
   }
 }

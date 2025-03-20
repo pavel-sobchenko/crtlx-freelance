@@ -3,7 +3,7 @@ import { Action, State, StateContext } from '@ngxs/store'
 import { Injectable } from '@angular/core'
 import { ProfileService } from '@core/profile/services/profile.service'
 import { Observable, tap } from 'rxjs'
-import { GetUserProfile, UpdateUserProfile } from '@core/profile/state/profile.actions'
+import { ClearUserProfile, GetUserProfile, UpdateUserProfile } from '@core/profile/state/profile.actions'
 
 export interface ProfileState {
   user?: User
@@ -23,16 +23,24 @@ export class ProfileStateService {
   public getUserProfile({
     patchState
   }: StateContext<ProfileState>): Observable<User> {
-    return this._profileService
-      .getUserProfile()
-      .pipe(tap(user => patchState({ user })))
+    return this._profileService.get().pipe(tap(user => patchState({ user })))
   }
 
   @Action(UpdateUserProfile)
   public updateUserInfo(
-    { patchState }: StateContext<ProfileState>,
+    { dispatch }: StateContext<ProfileState>,
     { user }: UpdateUserProfile
   ): Observable<User> {
-    return this._profileService.updateUserInfo(user)
+    return this._profileService.update(user).pipe(
+      tap(() => {
+        dispatch(new ClearUserProfile())
+        dispatch(new GetUserProfile())
+      })
+    )
+  }
+
+  @Action(ClearUserProfile)
+  public clearUserProfile({ patchState }: StateContext<ProfileState>): void {
+    patchState({ user: null })
   }
 }
