@@ -6,7 +6,7 @@
   >
     <div class="flex flex-col items-center justify-center w-full h-full">
       <ng-container *ngIf="url; else defaultIcon">
-        <img class="w-full h-full min-w-[124px]" alt="avatar" [src]="url" />
+        <img class="w-full h-full min-w-[124px] rounded-md" alt="avatar" [src]="url" />
       </ng-container>
       <ng-template #defaultIcon>
         <i class="fa fa-camera fa-2x text-gray-500"></i>
