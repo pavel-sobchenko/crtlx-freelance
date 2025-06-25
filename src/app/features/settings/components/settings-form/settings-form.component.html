@@ -1,12 +1,7 @@
-<form class="w-1/2" [formGroup]="form" (ngSubmit)="submit()">
+<form class="w-1/2" [formGroup]="form" (ngSubmit)="update()">
   <p class="text-blue-600 font-bold my-4">General</p>
 
-  <file-upload
-    label="Avatar"
-    [formControl]="form.controls['avatar']"
-    [url]="url"
-    [allowedExtensions]="['.png', '.jpg', '.jpeg']"
-  />
+  <image-upload label="Avatar" formControlName="avatar" [accept]="accept" />
 
   <label appFormLabel for="name">Name</label>
   <input
@@ -53,7 +48,7 @@
           placeholder="City"
           type="text"
         />
-        @if (!form.get('address.city').untouched) {
+        @if (form.get('address.city').touched) {
           <validation-message [errors]="form.get('address.city').errors" />
         }
       </div>
@@ -66,7 +61,7 @@
           placeholder="Post Code"
           type="text"
         />
-        @if (!form.get('address.postCode').untouched) {
+        @if (form.get('address.postCode').touched) {
           <validation-message [errors]="form.get('address.postCode').errors" />
         }
       </div>
@@ -81,7 +76,7 @@
             </option>
           }
         </select>
-        @if (!form.get('address.country').untouched) {
+        @if (form.get('address.country').touched) {
           <validation-message [errors]="form.get('address.country').errors" />
         }
       </div>

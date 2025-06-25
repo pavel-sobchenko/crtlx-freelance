@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule } from '@angular/forms'
-import { Select, Store } from '@ngxs/store'
-import { firstValueFrom, Observable } from 'rxjs'
-import { User } from '@core/auth/types/user'
+import { Store } from '@ngxs/store'
+import { firstValueFrom } from 'rxjs'
 import { SettingsFormComponent } from '../../components/settings-form/settings-form.component'
 import to from 'await-to-js'
 import { HttpErrorResponse } from '@angular/common/http'
@@ -21,11 +20,11 @@ import { UpdateUserProfile } from '@core/profile/state/profile.actions'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent {
-  @Select(ProfileStateSelectors.user)
-  public readonly user$: Observable<User>
-
-  private readonly _store = inject(Store)
-  private readonly _toastr = inject(ToastrService)
+  public readonly user$ = this._store.select(ProfileStateSelectors.user)
+  constructor(
+    private readonly _store: Store,
+    private readonly _toastr: ToastrService
+  ) {}
 
   public async saveUserSettings(userData: FormData): Promise<void> {
     const [error] = await to<unknown, HttpErrorResponse>(

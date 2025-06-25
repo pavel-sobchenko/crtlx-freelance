@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component'
 import { LogoComponent } from '@shared/components/logo/logo.component'
-import { Select } from '@ngxs/store'
+import { Store } from '@ngxs/store'
 import { AuthStateSelectors } from '@core/auth/state/auth.selectors'
-import { Observable } from 'rxjs'
 import { RouterOutlet } from '@angular/router'
 
 @Component({
@@ -23,6 +22,6 @@ import { RouterOutlet } from '@angular/router'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthPageComponent {
-  @Select(AuthStateSelectors.loading)
-  public loading$!: Observable<boolean>
+  public readonly loading$ = this._store.select(AuthStateSelectors.loading)
+  constructor(private readonly _store: Store) {}
 }
