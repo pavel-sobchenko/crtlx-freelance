@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 import { Store } from '@ngxs/store'
 import { Login } from 'src/app/core/auth/state/auth.actions'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
@@ -16,7 +16,7 @@ import { ErrorResponse } from '@core/types/error-response'
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [CommonModule, LoginFormComponent, SpinnerComponent, LogoComponent],
+  imports: [LoginFormComponent, SpinnerComponent, LogoComponent],
   templateUrl: './login-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

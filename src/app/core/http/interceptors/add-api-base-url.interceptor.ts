@@ -1,7 +1,8 @@
 import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http'
 import { Observable } from 'rxjs'
+import { environment } from 'src/environments/environment'
 
-const apiUrl = 'http://localhost:3000/'
+const apiUrl = environment.apiUrl
 
 export const addApiBaseUrlInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,

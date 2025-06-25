@@ -1,12 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  Input
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ERRORS } from '../../../features/auth/constants/errors'
 import { ValidationErrors } from '@angular/forms'
+import { ERRORS } from '@shared/constants/errors'
 
 @Component({
   selector: 'validation-message',

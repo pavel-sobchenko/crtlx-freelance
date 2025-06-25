@@ -6,5 +6,6 @@ export const ERRORS = new InjectionToken<Record<string, string>>('ERRORS', {
 
 export const errors: Record<string, string> = {
   required: 'Field is required',
-  email: 'Field should be in email format'
+  email: 'Field should be in email format',
+  invalidFileExtension: 'Invalid file format'
 }

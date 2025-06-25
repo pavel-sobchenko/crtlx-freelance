@@ -1,17 +1,17 @@
-<img
-  *ngIf="url; else noAvatar"
-  class="w-10 h-10"
-  [ngClass]="{
-    'rounded-full': shape === 'round',
-    rounded: shape === 'square',
-    'w-10 h-10': size === 'sm',
-    'w-20 h-20': size === 'md',
-    'w-30 h-30': size === 'lg'
-  }"
-  [src]="url"
-  [alt]="alt"
-/>
-<ng-template #noAvatar>
+@if (url) {
+  <img
+    class="w-10 h-10"
+    [ngClass]="{
+      'rounded-full': shape === 'round',
+      rounded: shape === 'square',
+      'w-10 h-10': size === 'sm',
+      'w-20 h-20': size === 'md',
+      'w-30 h-30': size === 'lg'
+    }"
+    [src]="url"
+    [alt]="alt"
+  />
+} @else {
   <i
     class="fa fa-user-circle-o"
     aria-hidden="true"
@@ -21,4 +21,4 @@
       'fa-5x': size === 'lg'
     }"
   ></i>
-</ng-template>
+}

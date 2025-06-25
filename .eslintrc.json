@@ -312,7 +312,8 @@
           "warn",
           { "maxComplexity": 3 }
         ],
-        "@angular-eslint/template/no-inline-styles": "off"
+        "@angular-eslint/template/no-inline-styles": "off",
+        "@angular-eslint/template/no-call-expression": "off"
       }
     },
     {

@@ -1,16 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Output
-} from '@angular/core'
-import { CommonModule } from '@angular/common'
-import {
-  FormGroup,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core'
+
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router, RouterLinkWithHref } from '@angular/router'
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component'
 import { LoginCredentials } from '@core/auth/types/credentials'
@@ -19,7 +9,6 @@ import { LoginCredentials } from '@core/auth/types/credentials'
   selector: 'login-form',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     RouterLinkWithHref,
     ValidationMessageComponent
